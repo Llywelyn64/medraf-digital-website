@@ -1,0 +1,1037 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>No robots, no neon | The Nook | Medraf Digital</title>
+<meta name="description" content="Where the firefly came from, and why my branding is not neon.">
+<link rel="icon" href="images/favicon.png" sizes="any">
+<link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+<link rel="stylesheet" href="fonts.css">
+<style>
+/* ==========================================================================
+   Medraf Digital
+   Shared stylesheet. Built to Brand and Voice Pack v2.
+   Palette, type and button treatment match the Lost Enquiry Calculator.
+   ========================================================================== */
+
+:root{
+  --base:#0e130f;
+  --secondary:#141b15;
+  --tertiary:#1c261d;
+  --panel:#1a231c;
+  --gold:#c9a96e;
+  --gold-light:#e0c46a;
+  --gold-pale:#e8d5b0;
+  --cream:#f5f0e8;
+  --cream-muted:#d4bea0;
+  --body-text:#ded8c9;
+  --green:#9dc48c;
+  --green-rule:#6f9e62;
+  --sage:#a5b9a0;
+  --divider:rgba(201,169,110,.22);
+  --divider-hover:rgba(201,169,110,.45);
+
+  --measure:720px;
+  --wide:1120px;
+}
+
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+
+body{
+  background:var(--base);
+  color:var(--body-text);
+  font-family:'Lato',sans-serif;
+  font-size:18px;
+  line-height:1.8;
+  -webkit-font-smoothing:antialiased;
+}
+
+a{color:var(--gold-light)}
+a:focus-visible,button:focus-visible,input:focus-visible,
+[tabindex]:focus-visible{
+  outline:2px solid var(--gold-light);
+  outline-offset:3px;
+}
+
+img{max-width:100%;display:block}
+
+/* ---------- type ---------- */
+
+h1,h2,h3{
+  font-family:'Cormorant Garamond',serif;
+  font-weight:500;
+  color:var(--cream);
+  line-height:1.15;
+}
+h1{font-size:clamp(40px,6.2vw,62px);margin-bottom:24px}
+h2{font-size:clamp(30px,4.4vw,44px);margin-bottom:22px}
+h3{font-size:clamp(22px,2.6vw,27px);margin-bottom:14px}
+
+h1 em,h2 em{
+  font-style:italic;
+  background:linear-gradient(120deg, var(--gold-pale), var(--gold-light));
+  -webkit-background-clip:text;
+  background-clip:text;
+  -webkit-text-fill-color:transparent;
+}
+
+p{margin-bottom:20px}
+p:last-child{margin-bottom:0}
+
+.eyebrow{
+  font-family:'Cinzel',serif;
+  font-weight:500;
+  font-size:12px;
+  letter-spacing:.16em;
+  text-transform:uppercase;
+  color:var(--gold);
+  margin-bottom:22px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:16px;
+}
+.eyebrow::before,.eyebrow::after{
+  content:"";
+  height:1px;
+  width:56px;
+  background:linear-gradient(90deg, transparent, var(--gold));
+}
+.eyebrow::after{background:linear-gradient(90deg, var(--gold), transparent)}
+
+.eyebrow-left{justify-content:flex-start}
+.eyebrow-left::before{display:none}
+
+.lede{
+  font-size:20px;
+  color:var(--cream-muted);
+  max-width:600px;
+  margin-left:auto;
+  margin-right:auto;
+}
+
+.rule{
+  width:120px;
+  height:1px;
+  margin:0 auto 26px;
+  background:linear-gradient(90deg, transparent, var(--gold), transparent);
+}
+
+/* ---------- layout ---------- */
+
+.wrap{max-width:var(--wide);margin:0 auto;padding:0 24px}
+.narrow{max-width:var(--measure);margin:0 auto;padding:0 24px}
+.narrow > h2{text-align:left}
+
+section{padding:84px 0}
+section.tight{padding:56px 0}
+section.tight + section{padding-top:56px}
+
+.centred{text-align:center}
+
+/* a lifted reading panel. body copy never sits on the raw base. */
+.panel{
+  background:var(--panel);
+  border:1px solid var(--divider);
+  border-radius:8px;
+  padding:38px 34px;
+}
+
+.band{
+  background:var(--secondary);
+  border-top:1px solid var(--divider);
+  border-bottom:1px solid var(--divider);
+}
+
+.quiet{
+  background:var(--secondary);
+  border-top:1px solid var(--divider);
+  border-bottom:1px solid var(--divider);
+  padding:64px 0;
+}
+.quiet p{max-width:640px;margin-left:auto;margin-right:auto}
+
+/* ---------- header and nav ---------- */
+
+header.site{
+  border-bottom:1px solid var(--divider);
+  padding:22px 0;
+  position:sticky;
+  top:0;
+  z-index:50;
+  background:rgba(14,19,15,.94);
+  backdrop-filter:blur(8px);
+}
+.header-inner{
+  max-width:var(--wide);
+  margin:0 auto;
+  padding:0 24px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:24px;
+}
+.brand{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  text-decoration:none;
+}
+.brand img{
+  height:50px;width:auto;
+  filter:drop-shadow(0 0 14px rgba(224,196,106,.5));
+}
+.brand-name{
+  font-family:'Cinzel',serif;
+  font-weight:600;
+  font-size:14px;
+  letter-spacing:.16em;
+  text-transform:uppercase;
+  color:var(--cream);
+}
+
+nav.site ul{list-style:none;display:flex;gap:26px;align-items:center}
+nav.site a{
+  font-family:'Lato',sans-serif;
+  font-size:15px;
+  letter-spacing:.02em;
+  color:var(--body-text);
+  text-decoration:none;
+  padding-bottom:3px;
+  border-bottom:1px solid transparent;
+}
+nav.site a:hover{color:var(--cream);border-bottom-color:var(--divider-hover)}
+nav.site a[aria-current="page"]{color:var(--gold-light);border-bottom-color:var(--gold)}
+
+.nav-toggle{
+  display:none;
+  background:none;
+  border:1px solid var(--divider);
+  border-radius:4px;
+  color:var(--cream);
+  font-family:'Cinzel',serif;
+  font-size:12px;
+  letter-spacing:.14em;
+  text-transform:uppercase;
+  padding:9px 14px;
+  cursor:pointer;
+}
+
+/* ---------- buttons ---------- */
+
+.btn{
+  display:inline-block;
+  font-family:'Cinzel',serif;
+  font-weight:600;
+  font-size:15px;
+  letter-spacing:.16em;
+  text-transform:uppercase;
+  padding:18px 34px;
+  border-radius:4px;
+  cursor:pointer;
+  text-align:center;
+  text-decoration:none;
+  color:#1c1608;
+  border:1px solid rgba(240,217,138,.8);
+  background:linear-gradient(180deg,
+    #f6e7a8 0%, #eccf7c 22%, #d9b566 48%, #c9a45c 72%, #b8944f 100%);
+  box-shadow:
+    0 0 22px rgba(224,196,106,.28),
+    inset 0 1px 0 rgba(255,255,255,.55),
+    inset 0 -2px 6px rgba(90,66,20,.35);
+  transition:box-shadow .2s, filter .2s;
+}
+.btn:hover{
+  filter:brightness(1.06);
+  box-shadow:
+    0 0 30px rgba(224,196,106,.45),
+    inset 0 1px 0 rgba(255,255,255,.6),
+    inset 0 -2px 6px rgba(90,66,20,.3);
+}
+
+.link-on{
+  font-family:'Cinzel',serif;
+  font-size:12px;
+  font-weight:600;
+  letter-spacing:.14em;
+  text-transform:uppercase;
+  color:var(--gold-light);
+  text-decoration:none;
+  border-bottom:1px solid var(--gold);
+  padding:6px 0 6px;
+  display:inline-flex;
+  align-items:center;
+  gap:9px;
+  min-height:44px;              /* a real tap target on a phone */
+  transition:border-color .2s,color .2s,gap .2s;
+}
+.link-on::after{
+  content:"\2192";
+  font-family:'Lato',sans-serif;
+  font-size:16px;
+  line-height:1;
+  transform:translateY(-1px);
+}
+.link-on:hover{color:var(--gold-pale);border-bottom-color:var(--gold-light);gap:13px}
+
+/* ---------- free tool card ---------- */
+
+.tool-card{
+  background:var(--panel);
+  border:1px solid var(--divider-hover);
+  border-radius:8px;
+  padding:44px 36px 40px;
+  text-align:center;
+  box-shadow:0 0 0 1px rgba(201,169,110,.10), 0 14px 40px rgba(0,0,0,.35);
+}
+.tool-card .eyebrow{margin-bottom:14px}
+.tool-card h3{margin-bottom:14px}
+.tool-card p{max-width:520px;margin:0 auto 28px}
+
+/* outlined, so it reads as an offer without beating Book a call */
+.btn-quiet{
+  color:var(--gold-pale);
+  border:1px solid rgba(201,169,110,.75);
+  background:linear-gradient(180deg,#26301f 0%,#1b241b 46%,#141b15 100%);
+  box-shadow:inset 0 1px 0 rgba(224,196,106,.22), 0 0 16px rgba(0,0,0,.5);
+  padding:17px 32px;
+}
+.btn-quiet:hover{
+  filter:none;
+  color:var(--cream);
+  border-color:var(--gold-light);
+  background:linear-gradient(180deg,#2e3a26 0%,#212c20 46%,#18211a 100%);
+  box-shadow:inset 0 1px 0 rgba(224,196,106,.4), 0 0 26px rgba(224,196,106,.28);
+}
+
+/* ---------- hero ---------- */
+
+.hero{
+  text-align:center;
+  padding:96px 24px 72px;
+  max-width:820px;
+  margin:0 auto;
+}
+.hero .lede{margin-top:4px}
+.hero .btn{margin-top:34px}
+
+/* the home hero sits on the oak, dimmed so type stays legible */
+.hero-oak{
+  position:relative;
+  min-height:min(78vh,760px);
+  display:flex;
+  align-items:center;
+  overflow:hidden;
+  border-bottom:1px solid var(--divider);
+}
+.hero-oak::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:
+    radial-gradient(ellipse 78% 62% at 50% 52%, rgba(14,19,15,.22), rgba(14,19,15,.88) 76%),
+    url('images/oak-photograph.png') center 42% / cover no-repeat;
+  opacity:.80;
+  z-index:0;
+}
+.hero-oak > *{position:relative;z-index:1}
+
+/* ---------- tiles ---------- */
+
+.tiles{
+  display:grid;
+  gap:24px;
+  grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
+}
+.tiles.four{grid-template-columns:repeat(2,minmax(300px,1fr))}
+@media (max-width:760px){.tiles.four{grid-template-columns:1fr}}
+.tile{
+  background:var(--panel);
+  border:1px solid var(--divider);
+  border-radius:8px;
+  padding:36px 32px;
+  transition:border-color .2s;
+  display:flex;
+  flex-direction:column;
+}
+.tile p{flex:1 1 auto}
+.tile .link-on{align-self:flex-start}
+.tile:hover{border-color:var(--divider-hover)}
+.tile h3{margin-bottom:12px}
+.tile .link-on{margin-top:20px}
+
+/* ---------- two-column text and image ---------- */
+
+.duo{
+  display:grid;
+  gap:48px;
+  grid-template-columns:1.25fr .75fr;
+  align-items:center;
+}
+.duo.flip{grid-template-columns:.75fr 1.25fr}
+.duo img{border-radius:8px}
+.duo .portrait-sq{max-width:320px;border:1px solid var(--divider)}
+
+/* ---------- numbered process ---------- */
+
+.steps{list-style:none;counter-reset:step}
+.steps li{
+  position:relative;
+  padding-left:34px;
+  margin-bottom:26px;
+}
+.steps li:last-child{margin-bottom:0}
+.steps li::before{
+  content:"";
+  position:absolute;
+  left:0;top:14px;
+  width:9px;height:9px;
+  border-radius:50%;
+  background:var(--gold);
+  box-shadow:0 0 10px rgba(201,169,110,.55);
+}
+
+/* ---------- closing CTA ---------- */
+
+.closing{
+  border-top:1px solid var(--divider);
+  background:var(--secondary);
+  text-align:center;
+  padding:88px 24px;
+}
+.closing p{max-width:600px;margin:0 auto 32px}
+
+/* ---------- testimonials ----------
+   Coded and hidden. To switch on, delete the hidden attribute
+   on the <section class="testimonials"> you want to show.
+   ------------------------------------------------------------ */
+
+.testimonials{padding:76px 0;border-top:1px solid var(--divider)}
+.testimonials[hidden]{display:none}
+.quote{
+  max-width:680px;
+  margin:0 auto;
+  text-align:center;
+}
+.quote blockquote{
+  font-family:'Cormorant Garamond',serif;
+  font-style:italic;
+  font-size:clamp(22px,3vw,29px);
+  line-height:1.5;
+  color:var(--gold-pale);
+  margin-bottom:22px;
+}
+.quote cite{
+  font-family:'Cinzel',serif;
+  font-style:normal;
+  font-size:12px;
+  letter-spacing:.16em;
+  text-transform:uppercase;
+  color:var(--sage);
+}
+
+/* ---------- footer ---------- */
+
+footer.site{
+  border-top:1px solid var(--divider);
+  padding:52px 0 44px;
+}
+.foot-grid{
+  max-width:var(--wide);
+  margin:0 auto;
+  padding:0 24px;
+  display:grid;
+  gap:36px;
+  grid-template-columns:1fr 1fr 1fr;
+  align-items:start;
+}
+.foot-grid .brand-name{display:block;margin-bottom:8px}
+.foot-grid p{font-size:15px;color:var(--sage);margin:0}
+.foot-nav{list-style:none;display:flex;flex-wrap:wrap;gap:8px 18px;justify-content:center}
+.foot-nav a{font-size:15px;color:var(--body-text);text-decoration:none}
+.foot-nav a:hover{color:var(--gold-light)}
+.foot-right{text-align:right}
+.foot-right a{color:var(--green);text-decoration:none}
+.diolch{
+  font-family:'Cormorant Garamond',serif;
+  font-style:italic;
+  font-size:21px;
+  color:var(--gold-pale);
+  margin-top:10px !important;
+}
+.legal{
+  max-width:var(--wide);
+  margin:36px auto 0;
+  padding:22px 24px 0;
+  border-top:1px solid var(--divider);
+  font-size:13px;
+  line-height:1.7;
+  color:var(--sage);
+  text-align:center;
+}
+.legal a{color:var(--sage)}
+
+/* ==========================================================================
+   The Oak. Stage is sized to the viewport so the whole tree, the firefly
+   and the soil glow are visible without scrolling.
+   ========================================================================== */
+
+.oak-stage{
+  position:relative;
+  width:100%;
+  /* sized so the whole tree, the firefly and the soil glow
+     sit on one screen under the heading */
+  height:clamp(420px, calc(100vh - 290px), 920px);
+  margin:0 auto;
+  max-width:none;
+}
+.oak-stage img,
+.oak-stage svg{
+  position:absolute;
+  inset:0;
+  width:100%;
+  height:100%;
+}
+.oak-stage img{object-fit:contain}
+.oak-stage svg{overflow:visible}
+
+.hotspot{cursor:pointer}
+.hotspot .ring{
+  fill:none;
+  stroke:var(--gold);
+  stroke-width:1.4;
+  opacity:.5;
+  transition:opacity .25s, r .25s;
+}
+.hotspot .dot{
+  fill:var(--gold);
+  opacity:.85;
+  transition:opacity .25s, r .25s;
+}
+.hotspot:hover .ring,
+.hotspot:focus-visible .ring,
+.hotspot.on .ring{opacity:.95}
+.hotspot:hover .dot,
+.hotspot:focus-visible .dot,
+.hotspot.on .dot{opacity:1}
+
+.oak-tip{
+  position:absolute;
+  max-width:270px;
+  background:var(--panel);
+  border:1px solid var(--divider-hover);
+  border-radius:6px;
+  padding:16px 18px;
+  font-size:15px;
+  line-height:1.65;
+  color:var(--body-text);
+  opacity:0;
+  pointer-events:none;
+  transition:opacity .2s;
+  z-index:6;
+  box-shadow:0 8px 30px rgba(0,0,0,.55);
+}
+.oak-tip.on{opacity:1}
+.oak-tip .tip-label{
+  font-family:'Cinzel',serif;
+  font-size:11px;
+  font-weight:600;
+  letter-spacing:.16em;
+  text-transform:uppercase;
+  color:var(--gold);
+  display:block;
+  margin-bottom:7px;
+}
+
+/* compact heading, so the tree clears the fold */
+.oak-hero{padding:46px 24px 26px;max-width:900px;margin:0 auto;text-align:center}
+.oak-hero h1{font-size:clamp(34px,4.6vw,50px);margin-bottom:18px}
+.oak-hero .rule{margin-bottom:20px}
+.oak-hero .lede{font-size:18px}
+.oak-hero .eyebrow{margin-bottom:16px}
+.oak-section{padding:0 0 72px}
+
+.oak-lede{
+  max-width:640px;
+  margin:40px auto 0;
+  padding:0 24px;
+  text-align:center;
+  color:var(--cream-muted);
+  font-size:19px;
+}
+
+/* legend */
+.legend{
+  list-style:none;
+  max-width:820px;
+  margin:44px auto 0;
+  padding:0 24px;
+  display:grid;
+  gap:18px 32px;
+  grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+}
+.legend li{display:flex;gap:14px;align-items:flex-start;cursor:pointer}
+.legend .swatch{
+  flex:0 0 auto;
+  width:9px;height:9px;
+  border-radius:50%;
+  background:var(--gold);
+  margin-top:12px;
+  box-shadow:0 0 8px rgba(201,169,110,.5);
+}
+.legend b{
+  font-family:'Cinzel',serif;
+  font-weight:600;
+  font-size:12px;
+  letter-spacing:.14em;
+  text-transform:uppercase;
+  color:var(--gold-pale);
+  display:block;
+}
+.legend span.text{font-size:16px;line-height:1.65}
+.legend li:hover b{color:var(--gold-light)}
+
+/* ---------- About page colour ---------- */
+
+.about h1{
+  background:linear-gradient(120deg, var(--gold-pale), var(--gold-light));
+  -webkit-background-clip:text;
+  background-clip:text;
+  -webkit-text-fill-color:transparent;
+}
+.about .lede{color:var(--green)}
+.about main h2,
+.about section:not(.closing) h2{
+  color:var(--gold-pale);
+  display:inline-block;
+  padding-bottom:10px;
+  border-bottom:1px solid var(--green-rule);
+}
+.about .quiet{border-left:3px solid var(--green-rule)}
+.about .closing h2{color:var(--cream);border-bottom:none;display:block;padding-bottom:0}
+
+.legend-fly{
+  grid-template-columns:1fr;
+  max-width:700px;
+  margin-top:30px;
+  padding-top:26px;
+  border-top:1px solid var(--divider);
+}
+.legend-fly li{cursor:default}
+.legend .swatch.fly{
+  background:var(--gold-light);
+  box-shadow:0 0 12px rgba(224,196,106,.85), 0 0 24px rgba(224,196,106,.35);
+}
+
+.gallery-band{
+  position:relative;
+  overflow:hidden;
+  border-top:1px solid var(--divider);
+  border-bottom:1px solid var(--divider);
+  padding:76px 0 84px;
+}
+.gallery-band::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:
+    radial-gradient(ellipse 96% 92% at 50% 40%, rgba(14,19,15,.62), rgba(14,19,15,.92) 84%),
+    url('images/oak-photograph.png') center 34% / cover no-repeat;
+  opacity:.85;
+  z-index:0;
+}
+.gallery-band > *{position:relative;z-index:1}
+
+.gallery{
+  display:grid;
+  gap:44px 34px;
+  grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+}
+.creature figure,
+.creature{margin:0}
+.creature img{
+  width:100%;
+  border-radius:3px;
+  box-shadow:0 18px 44px rgba(0,0,0,.55);
+}
+.frame-empty{
+  aspect-ratio:4 / 5;
+  border:1px dashed var(--divider);
+  border-radius:3px;
+  background:rgba(20,27,21,.55);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+.frame-empty span{
+  font-family:'Cinzel',serif;
+  font-size:11px;
+  letter-spacing:.16em;
+  text-transform:uppercase;
+  color:#6f7a6d;
+}
+/* the firefly, perched on the top rail of the first frame */
+.creature{position:relative}
+.perched{
+  position:absolute;
+  top:-15px;
+  left:11%;
+  width:52px;
+  z-index:3;
+  pointer-events:none;
+  filter:drop-shadow(0 0 10px rgba(224,196,106,.75))
+         drop-shadow(0 0 22px rgba(224,196,106,.35));
+  animation:fly-glow 3.6s ease-in-out infinite;
+  transform-origin:80% 60%;
+}
+.perched img{width:100%;display:block}
+
+@keyframes fly-glow{
+  0%,100%{opacity:.72}
+  50%    {opacity:1}
+}
+
+/* a flutter every few seconds, still the rest of the time */
+.perched img{animation:fly-flutter 7s ease-in-out infinite}
+@keyframes fly-flutter{
+  0%,86%   {transform:scaleX(1)   rotate(0deg)}
+  88%      {transform:scaleX(.86) rotate(-3deg)}
+  90%      {transform:scaleX(1.02) rotate(2deg)}
+  92%      {transform:scaleX(.88) rotate(-2deg)}
+  94%      {transform:scaleX(1.01) rotate(1deg)}
+  96%,100% {transform:scaleX(1)   rotate(0deg)}
+}
+
+@media (prefers-reduced-motion:reduce){
+  .perched, .perched img{animation:none}
+}
+
+.creature figcaption{
+  text-align:center;
+  margin-top:16px;
+}
+.creature figcaption b{
+  display:block;
+  font-family:'Cormorant Garamond',serif;
+  font-weight:500;
+  font-size:22px;
+  color:var(--cream);
+  text-shadow:0 2px 14px rgba(14,19,15,.95), 0 0 26px rgba(14,19,15,.85);
+}
+.creature figcaption span{
+  font-family:'Cinzel',serif;
+  font-size:11px;
+  letter-spacing:.14em;
+  text-transform:uppercase;
+  color:var(--sage);
+  text-shadow:0 2px 12px rgba(14,19,15,.95);
+}
+.creature.waiting figcaption b{color:var(--sage)}
+
+/* ---------- The Nook ---------- */
+
+.nook-picture{
+  width:100%;
+  max-width:960px;
+  margin:0 auto;
+  border-radius:6px;
+  border:1px solid var(--divider);
+  box-shadow:0 20px 50px rgba(0,0,0,.5);
+}
+
+.post-list{list-style:none}
+.post-list li{border-top:1px solid var(--divider)}
+.post-list li:last-child{border-bottom:1px solid var(--divider)}
+.post-list a{
+  display:block;
+  padding:34px 0;
+  text-decoration:none;
+  color:inherit;
+}
+.post-list h3{margin-bottom:10px;transition:color .2s}
+.post-list a:hover h3{color:var(--gold-pale)}
+.post-list p{margin-bottom:16px;color:var(--cream-muted)}
+.post-date{
+  font-family:'Cinzel',serif;
+  font-size:11px;
+  letter-spacing:.16em;
+  text-transform:uppercase;
+  color:var(--sage);
+  display:block;
+  margin-bottom:10px;
+}
+
+.post-hero h1{font-size:clamp(34px,5vw,52px)}
+.post-stand{
+  font-size:20px;
+  color:var(--cream-muted);
+  max-width:560px;
+  margin:0 auto 20px;
+}
+.post-meta{
+  font-family:'Cinzel',serif;
+  font-size:11px;
+  letter-spacing:.16em;
+  text-transform:uppercase;
+  color:var(--sage);
+}
+.post-figs{margin:0 0 34px}
+.post-figs img{
+  width:100%;
+  border-radius:6px;
+  border:1px solid var(--divider);
+  box-shadow:0 16px 40px rgba(0,0,0,.45);
+}
+.post-figs figcaption{
+  font-family:'Cinzel',serif;
+  font-size:11px;
+  letter-spacing:.14em;
+  text-transform:uppercase;
+  color:var(--sage);
+  margin-top:10px;
+  text-align:center;
+}
+.post-figs figure{margin:0}
+.post-figs.two{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+@media (max-width:640px){.post-figs.two{grid-template-columns:1fr}}
+
+.post-quote{
+  font-family:'Cormorant Garamond',serif;
+  font-style:italic;
+  font-size:clamp(20px,2.4vw,25px);
+  line-height:1.5;
+  color:var(--gold-pale);
+  border-left:2px solid var(--green-rule);
+  padding:4px 0 4px 26px;
+  margin:0 0 30px;
+}
+.post-quote cite{
+  display:block;
+  font-family:'Cinzel',serif;
+  font-style:normal;
+  font-size:11px;
+  letter-spacing:.16em;
+  text-transform:uppercase;
+  color:var(--sage);
+  margin-top:16px;
+}
+
+.post-body p{font-size:19px;margin-bottom:26px}
+.post-body p:first-child{
+  font-size:21px;
+  color:var(--cream-muted);
+}
+
+/* ---------- responsive ---------- */
+
+@media (max-width:880px){
+  .duo,.duo.flip{grid-template-columns:1fr;gap:32px}
+  .duo .portrait-sq{margin:0 auto}
+  .foot-grid{grid-template-columns:1fr;text-align:center;gap:26px}
+  .foot-right{text-align:center}
+  .foot-nav{justify-content:center}
+}
+
+@media (max-width:720px){
+  body{font-size:17px}
+  section{padding:64px 0}
+  .hero{padding:72px 20px 56px}
+  .nav-toggle{display:block}
+  nav.site{
+    display:none;
+    position:absolute;
+    top:100%;left:0;right:0;
+    background:var(--base);
+    border-bottom:1px solid var(--divider);
+    padding:16px 24px 22px;
+  }
+  nav.site.open{display:block}
+  nav.site ul{flex-direction:column;align-items:flex-start;gap:14px}
+  .oak-stage{height:min(70vh,620px)}
+  .oak-tip{max-width:230px;font-size:14px}
+}
+
+/* ---------- moving between pages ----------
+   A short cross-fade instead of a hard snap. Browsers that do not
+   support it simply load the page as before, so nothing breaks.
+   ------------------------------------------------------------ */
+
+@view-transition{ navigation: auto; }
+
+::view-transition-old(root){
+  animation: fade-out .18s ease both;
+}
+::view-transition-new(root){
+  animation: fade-in .28s ease both;
+}
+@keyframes fade-out{ to{ opacity:0 } }
+@keyframes fade-in{ from{ opacity:0 } }
+
+/* the header holds still while the page beneath it changes */
+header.site{ view-transition-name: site-header; }
+footer.site{ view-transition-name: site-footer; }
+
+@media (prefers-reduced-motion:reduce){
+  ::view-transition-old(root),
+  ::view-transition-new(root){ animation:none }
+
+  html{scroll-behavior:auto}
+  *{transition:none !important}
+}
+
+
+/* ---------- post footer: back and next ---------- */
+.post-nav{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:22px 30px;border-top:1px solid var(--divider);padding-top:34px}
+.post-nav .next{text-decoration:none;text-align:right;display:block;max-width:360px;margin-left:auto}
+.post-nav .next .post-date{margin-bottom:6px}
+.post-nav .next b{display:block;font-family:'Cormorant Garamond',serif;font-weight:500;font-size:23px;line-height:1.3;color:var(--cream);transition:color .2s}
+.post-nav .next b::after{content:" \2192";font-family:'Lato',sans-serif;font-size:18px;color:var(--gold-light)}
+.post-nav .next:hover b{color:var(--gold-pale)}
+@media (max-width:600px){.post-nav{flex-direction:column-reverse;align-items:stretch}.post-nav .next{text-align:left;margin-left:0;max-width:none}.post-nav .btn{text-align:center}}
+
+/* legal links row in the footer */
+.foot-legal{
+  list-style:none;
+  max-width:var(--wide);
+  margin:30px auto 0;
+  padding:0 24px;
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px 18px;
+  justify-content:center;
+}
+.foot-legal a{font-size:14px;color:var(--sage);text-decoration:none}
+.foot-legal a:hover{color:var(--gold-light)}
+.nowrap{white-space:nowrap}
+</style>
+<link rel="canonical" href="https://medrafdigital.co.uk/nook-no-robots-no-neon.html">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Medraf Digital">
+<meta property="og:locale" content="en_GB">
+<meta property="og:title" content="No robots, no neon | The Nook | Medraf Digital">
+<meta property="og:description" content="Where the firefly came from, and why my branding is not neon.">
+<meta property="og:url" content="https://medrafdigital.co.uk/nook-no-robots-no-neon.html">
+<meta property="og:image" content="https://medrafdigital.co.uk/og-image.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Medraf Digital. Every enquiry answered, day or night.">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="No robots, no neon | The Nook | Medraf Digital">
+<meta name="twitter:description" content="Where the firefly came from, and why my branding is not neon.">
+<meta name="twitter:image" content="https://medrafdigital.co.uk/og-image.jpg">
+</head>
+<body class="nook-post">
+<header class="site">
+  <div class="header-inner">
+    <a class="brand" href="index.html">
+      <img src="images/medraf-digital-mark.png" alt="">
+      <span class="brand-name">Medraf Digital</span>
+    </a>
+    <button class="nav-toggle" aria-expanded="false" aria-controls="siteNav">Menu</button>
+    <nav class="site" id="siteNav">
+      <ul>
+      <li><a href="index.html">Home</a></li>
+      <li><a href="oak.html">The Oak</a></li>
+      <li><a href="offers.html">Offers</a></li>
+      <li><a href="creatures.html">Smart Creatures</a></li>
+      <li><a href="nook.html">The Nook</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="book.html">Book a call</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+<section class="hero post-hero">
+  <p class="eyebrow">The Nook</p>
+  <h1>No robots, no neon</h1>
+  <div class="rule"></div>
+  <p class="post-stand">Where the firefly came from, and why my branding is not neon.</p>
+  <p class="post-meta">August 2026</p>
+</section>
+
+<section class="tight">
+  <div class="narrow post-body">
+    <p>Artificial intelligence doesn't have to be all robots and neon light. Yes, it is very futuristic, but it's already here. It's the new revolution. We have had the industrial revolution, then electricity, then computers, and now AI.</p>
+    <p>Yes, it can seem a bit daunting and somewhat scary. Some will use it to no good. But there's another side too. The side that will generate the wwws and the aaahs.</p>
+    <p>I had joined Adventures After Teaching after another part time teaching contract ended, after two years. I wanted ideas on what to do next. 25+ years of teaching behind me, but where to next?</p>
+    <p>I heard Jo talking about her VA course and it piqued my interest. I signed up and learned a lot. I also gained a CPD certificate in Project Management Fundamentals, which was very interesting. Initially I thought I hadn't done any project management, but it turns out I had loads of examples from my years of teaching.</p>
+    <div class="post-figs">
+      <figure><img src="images/first-branding.jpg" alt="My first branding, when I was going to be a VA"><figcaption>My first branding, when I was going to be a VA</figcaption></figure>
+    </div>
+    <p>Then Jo introduced me to Claude.ai and I was hooked. New shiny object, and I was in awe. As I gradually found my feet I realised that this was a tool that was, for want of a better phrase, mind blowing. And now, one year later, I am still in awe with its capabilities and its potential.</p>
+    <p>That was when I changed direction. I had signed up to become a VA, but after following and investing in training from Heather Murray and Isabella Bedoya, I decided to become an AI consultant and trainer instead.</p>
+    <p>Why? Because I saw AI's potential. I was a teacher, and I loved seeing the light bulb moment when children learned something new. Now I get to see the same thing, helping businesses use AI.</p>
+    <p>I have learned so much from really amazing people. More on that in later posts. I have learned to prompt, to enable me to create wonderful images, video clips, songs and websites. I have also learned how to create chatbots and automations. It has helped me at home too, with decisions and paperwork that used to take days.</p>
+    <p>The world itself hasn't changed. You still have the same landscapes, the people, the animals. So I decided early on that my branding wasn't going to be bright neon colours and robots.</p>
+    <p>I want my clients, who feel a bit frazzled by all of their daily tasks, to feel some relief that they can hand over some of the time consuming tasks to AI. This will enable them to make choices. It might be that they use this extra time on the work, or on something that isn't work at all.</p>
+    <p>That's how I see AI. I will use it to help others help themselves. The firefly is my interpretation of the AI at work, quietly glowing all day and night, working while you do your other thing.</p>
+  </div>
+</section>
+
+<section class="tight">
+  <div class="narrow post-nav">
+    <a class="btn btn-quiet" href="nook.html">Back to The Nook</a>
+  </div>
+</section>
+
+<section class="closing">
+  <h2>Let's start with a conversation.</h2>
+  <p>A first chat, fifteen minutes. We talk about the work you do, where the time goes, and which parts are worth handing over. If any of them are, I will tell you what that looks like. Pricing is discussed on the call.</p>
+  <a class="btn" href="book.html">Book a call</a>
+</section>
+<footer class="site">
+  <div class="foot-grid">
+    <div>
+      <span class="brand-name">Medraf Digital</span>
+      <p>I build calm systems that give you your time back.</p>
+    </div>
+    <ul class="foot-nav">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="oak.html">The Oak</a></li>
+      <li><a href="offers.html">Offers</a></li>
+      <li><a href="creatures.html">Smart Creatures</a></li>
+      <li><a href="nook.html">The Nook</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="book.html">Book a call</a></li>
+    </ul>
+    <div class="foot-right">
+      <p><a href="mailto:hello@medrafdigital.co.uk">hello@medrafdigital.co.uk</a></p>
+      <p class="diolch">Diolch.</p>
+    </div>
+  </div>
+  <ul class="foot-legal">
+    <li><a href="privacy.html">Privacy Policy</a></li>
+    <li><a href="terms.html">Website Terms</a></li>
+    <li><a href="cookies.html">Cookie Policy</a></li>
+    <li><a href="complaints.html">Data Protection Complaints Policy</a></li>
+  </ul>
+  <p class="legal">
+    Medraf Digital Limited &middot; Registered in England and Wales &middot; Company No. 17281956 &middot; <span class="nowrap">VAT No. 523 7259 88</span><br>
+    Registered office: Irish Square, Upper Denbigh Road, St Asaph, Denbighshire, LL17 0RN<br>
+    &copy; 2026 Medraf Digital Limited. All rights reserved.
+  </p>
+</footer>
+
+<!-- ============================================================
+     Dante AI assistant.
+     Paste the embed script from the Dante dashboard directly
+     below this comment, on every page. Nothing else changes.
+     ============================================================ -->
+
+<script>
+/* Mobile navigation toggle. Shared by every page. */
+(function () {
+  var btn = document.querySelector('.nav-toggle');
+  var nav = document.querySelector('nav.site');
+  if (!btn || !nav) return;
+  btn.addEventListener('click', function () {
+    var open = nav.classList.toggle('open');
+    btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+  });
+})();
+
+</script>
+</body>
+</html>

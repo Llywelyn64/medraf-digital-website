@@ -1,0 +1,591 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex">
+<meta name="referrer" content="no-referrer">
+<link rel="stylesheet" href="fonts.css">
+<title>The AI Presence Check | Medraf Digital</title>
+<meta name="description" content="Twelve questions about how well you know your business' AI presence.">
+<meta property="og:image" content="https://medrafdigital.co.uk/og-image.jpg">
+<meta name="twitter:image" content="https://medrafdigital.co.uk/og-image.jpg">
+<style>
+
+:root{
+  --base:#0e130f; --base-2:#141b15; --panel:#1a231c;
+  --gold:#c9a96e; --gold-light:#e0c46a; --gold-pale:#e8d5b0;
+  --cream:#f5f0e8; --cream-muted:#d4bea0; --body:#ded8c9;
+  --green:#9dc48c; --green-rule:#6f9e62; --sage:#a5b9a0;
+  --line:rgba(201,169,110,.22); --line-hover:rgba(201,169,110,.45);
+  --accent:var(--gold);
+  --display:"Cormorant Garamond", Garamond, "Times New Roman", serif;
+  --label:"Cinzel", "Trajan Pro", Georgia, serif;
+  --text:"Lato", "Helvetica Neue", Arial, sans-serif;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{
+  margin:0; min-height:100vh; min-height:100dvh;
+  background:var(--base); color:var(--body);
+  font-family:var(--text); font-size:18px; line-height:1.8;
+  -webkit-font-smoothing:antialiased;
+  background-image:radial-gradient(ellipse 70% 45% at 50% -10%, rgba(224,196,106,.07), transparent 70%);
+  background-repeat:no-repeat;
+}
+button,input{font:inherit;color:inherit}
+a{color:var(--gold)}
+a:hover{color:var(--gold-light)}
+:focus-visible{outline:2px solid var(--gold-light);outline-offset:3px}
+
+.progress{position:fixed;inset:0 0 auto 0;height:3px;background:rgba(201,169,110,.10);z-index:5;opacity:0;transition:opacity .4s}
+.progress.on{opacity:1}
+.progress span{display:block;height:100%;width:0;background:var(--accent);transition:width .5s ease, background-color .5s}
+
+.wrap{max-width:38rem;margin:0 auto;padding:1.25rem 1rem 1.5rem;display:flex;flex-direction:column;min-height:100vh;min-height:100dvh}
+.brand{text-decoration:none;display:inline-flex;align-items:center;gap:.7rem;margin:0 0 .6rem}
+.firefly{width:7px;height:7px;border-radius:50%;background:var(--gold-light);box-shadow:0 0 6px 2px rgba(224,196,106,.55),0 0 18px 6px rgba(224,196,106,.18);animation:glow 5s ease-in-out infinite}
+@keyframes glow{50%{box-shadow:0 0 4px 1px rgba(224,196,106,.35),0 0 12px 4px rgba(224,196,106,.10)}}
+.mark{display:block;width:40px;height:40px}
+.brand b{font-family:var(--label);font-weight:500;font-size:.72rem;letter-spacing:.16em;color:var(--gold)}
+
+.card{background:var(--panel);border:1px solid var(--line);border-radius:6px;padding:2rem 1.4rem 2.2rem;flex:0 0 auto}
+@media (min-width:600px){.wrap{padding-top:2rem}.card{padding:2.6rem 3rem 2.8rem}}
+
+.screen{display:none}
+.screen.active{display:block;animation:fade .45s ease both}
+@keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+
+.label{font-family:var(--label);font-weight:500;font-size:.74rem;letter-spacing:.16em;line-height:1.6;text-transform:uppercase;margin:0}
+.kicker{color:var(--gold)}
+
+h1,h2,.question{font-family:var(--display);color:var(--cream);font-weight:500;margin:0}
+h1{font-size:clamp(2rem,7vw,2.75rem);line-height:1.15;letter-spacing:-.005em}
+h2{font-size:clamp(1.55rem,5vw,1.9rem);line-height:1.25}
+h1:focus,h2:focus,.question:focus{outline:none}
+p{margin:0 0 1.1rem}
+.lede{font-family:var(--display);font-style:italic;font-size:1.3rem;line-height:1.55;color:var(--gold-pale)}
+.quiet{color:var(--sage)}
+.rule{height:1px;background:var(--line);border:0;margin:2rem 0}
+
+.btn{
+  display:inline-flex;align-items:center;justify-content:center;
+  min-height:56px;padding:.9rem 2rem;border-radius:4px;cursor:pointer;
+  font-family:var(--label);font-weight:600;font-size:.8rem;letter-spacing:.14em;
+  color:#1a1408;border:1px solid rgba(240,214,140,.85);
+  background:linear-gradient(180deg,#ecd49a 0%,#d9bb7c 38%,#c9a96e 62%,#b8965c 100%);
+  box-shadow:inset 0 1px 0 rgba(255,244,214,.55),inset 0 -1px 0 rgba(90,66,28,.35),0 0 18px rgba(224,196,106,.22),0 4px 14px rgba(0,0,0,.35);
+  text-shadow:0 1px 0 rgba(255,240,200,.35);
+  transition:box-shadow .25s,filter .25s;
+}
+.btn:hover{filter:brightness(1.06);box-shadow:inset 0 1px 0 rgba(255,244,214,.65),inset 0 -1px 0 rgba(90,66,28,.35),0 0 26px rgba(224,196,106,.34),0 4px 14px rgba(0,0,0,.35)}
+.btn:active{filter:brightness(.97)}
+.btn[disabled]{opacity:.6;cursor:wait}
+.btn-full{width:100%}
+
+/* Intro */
+.intro h1{margin:1rem 0 1.5rem}
+.intro .facts{margin:1.75rem 0 2.25rem;padding:1.1rem 0 .2rem;border-top:1px solid var(--line)}
+.intro .facts p{margin:0 0 .9rem}
+
+/* Question */
+.qhead{display:flex;justify-content:space-between;align-items:baseline;gap:1rem;padding-bottom:.9rem;border-bottom:1px solid var(--accent);transition:border-color .5s}
+.qhead .section{color:var(--accent);transition:color .5s}
+.qhead .count{font-size:.95rem;color:var(--sage);white-space:nowrap}
+.qcode .num{font-family:var(--text);font-weight:700;letter-spacing:.08em}
+.qcode{margin:1.4rem 0 .9rem;color:var(--cream-muted);font-size:.7rem}
+.question{font-size:clamp(1.7rem,6vw,2.25rem);line-height:1.25;margin-bottom:2rem}
+.answers{display:grid;gap:.75rem}
+.answer{
+  display:flex;align-items:center;gap:1rem;width:100%;min-height:60px;
+  padding:.85rem 1.2rem;text-align:left;cursor:pointer;
+  background:var(--base-2);border:1px solid var(--line);border-radius:4px;color:var(--body);
+  transition:border-color .2s,background-color .2s,color .2s;
+}
+.answer:hover{border-color:var(--line-hover)}
+.answer .dot{flex:0 0 auto;width:14px;height:14px;border-radius:50%;border:1px solid var(--line-hover);transition:background-color .2s,border-color .2s,box-shadow .2s}
+.answer[aria-pressed="true"]{border-color:var(--accent);background:rgba(201,169,110,.08);color:var(--cream)}
+.answer[aria-pressed="true"] .dot{background:var(--accent);border-color:var(--accent);box-shadow:0 0 8px 1px rgba(224,196,106,.35)}
+.back{margin-top:1.75rem;background:none;border:0;padding:.5rem 0;cursor:pointer;color:var(--sage);font-size:1rem;text-decoration:underline;text-decoration-color:var(--line-hover);text-underline-offset:4px}
+.back:hover{color:var(--cream)}
+
+/* Results */
+.score{margin:2rem 0 2.25rem;padding:1.6rem 0 1.4rem;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.score .figure{font-family:var(--display);color:var(--gold);line-height:1;margin:.6rem 0 0;font-size:clamp(4.5rem,20vw,6rem);font-weight:400}
+.score .figure small{font-size:.42em;color:var(--cream-muted);margin-left:.1em}
+.areas{list-style:none;margin:1.25rem 0 0;padding:0}
+.areas li{padding:1.1rem 0;border-bottom:1px solid var(--line)}
+.areas li:last-child{border-bottom:0}
+.area-top{display:flex;justify-content:space-between;align-items:center;gap:1rem;margin-bottom:.35rem}
+.area-name{font-family:var(--display);font-size:1.4rem;color:var(--cream);font-weight:500;line-height:1.3}
+.area-score{display:flex;align-items:center;gap:.7rem;white-space:nowrap;color:var(--cream-muted);font-size:.95rem}
+.pips{display:flex;gap:5px}
+.pips i{width:9px;height:9px;border-radius:50%;border:1px solid var(--line-hover)}
+.pips i.on{background:var(--c);border-color:var(--c)}
+.areas p{margin:0;color:var(--sage);font-size:1rem;line-height:1.7}
+.unsure{margin:1.75rem 0 0;padding:1rem 1.2rem;border-left:2px solid var(--gold);background:var(--base-2);color:var(--cream)}
+.gate h2{margin-bottom:1rem}
+#r-h,#d-h{margin-top:1rem}
+
+form{margin-top:1.75rem}
+.field{margin-bottom:1.3rem}
+.field label{display:block;color:var(--gold);margin-bottom:.5rem;font-size:.7rem}
+.field input{
+  width:100%;min-height:56px;padding:.8rem 1rem;border-radius:4px;
+  background:var(--base);border:1px solid var(--line-hover);color:var(--cream);font-size:18px;
+}
+.field input:focus{border-color:var(--gold);outline:none;box-shadow:0 0 0 3px rgba(201,169,110,.2)}
+.hp{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
+.consent-optional{margin-top:-.6rem}
+.consent{display:flex;gap:.9rem;align-items:flex-start;margin:1.6rem 0 1.8rem;font-size:1rem;line-height:1.7}
+.consent input{
+  -webkit-appearance:none;appearance:none;flex:0 0 auto;width:26px;height:26px;margin:.15rem 0 0;cursor:pointer;
+  border-radius:4px;border:1px solid var(--gold);background:var(--base);
+  box-shadow:inset 0 1px 3px rgba(0,0,0,.5);position:relative;transition:box-shadow .25s,background .25s;
+}
+.consent input:hover{box-shadow:inset 0 1px 3px rgba(0,0,0,.5),0 0 10px rgba(224,196,106,.25)}
+.consent input:checked{
+  border-color:rgba(240,214,140,.9);
+  background:linear-gradient(180deg,#ecd49a 0%,#d9bb7c 40%,#c9a96e 65%,#b8965c 100%);
+  box-shadow:inset 0 1px 0 rgba(255,244,214,.6),0 0 14px rgba(224,196,106,.35);
+}
+.consent input:checked::after{
+  content:"";position:absolute;left:8px;top:3px;width:7px;height:13px;
+  border:solid #1a1408;border-width:0 2.5px 2.5px 0;transform:rotate(45deg);
+}
+.error{min-height:0;margin:0 0 1rem;color:var(--gold-pale);font-size:1rem}
+.error:empty{display:none}
+.small{font-size:.9rem;line-height:1.7;color:var(--sage);margin:1.5rem 0 0}
+
+.after{margin-top:2.2rem;padding-top:1.6rem;border-top:1px solid var(--line);display:flex;flex-direction:column;gap:.9rem;align-items:flex-start}
+.after-link{font-family:var(--label);font-weight:600;font-size:.74rem;letter-spacing:.14em;text-transform:uppercase;color:var(--gold-light);text-decoration:none;border-bottom:1px solid var(--gold);padding:.4rem 0;min-height:44px;display:inline-flex;align-items:center;gap:.55rem}
+.after-link::after{content:"\2192";font-family:var(--text);font-size:1rem;letter-spacing:0}
+.after-link:hover{color:var(--gold-pale)}
+footer{margin-top:auto;padding-top:2rem;text-align:center;font-size:.85rem;color:var(--sage)}
+footer a{color:var(--sage)}
+
+.brand-line{margin:.9rem 0 0;font-size:.95rem;color:var(--sage)}
+.foot-nav,.foot-legal{list-style:none;display:flex;flex-wrap:wrap;justify-content:center;gap:.4rem 1.1rem;margin:1.4rem 0 0;padding:0}
+.foot-nav a{font-size:.95rem;color:var(--body);text-decoration:none}
+.foot-nav a:hover{color:var(--gold-light)}
+.foot-contact{margin:1.3rem 0 0}
+.foot-contact a{color:var(--green);text-decoration:none}
+.diolch{font-family:var(--display);font-style:italic;font-size:1.25rem;color:var(--gold-pale);margin:.5rem 0 0}
+.foot-legal{margin-top:1.3rem}
+.foot-legal a{font-size:.85rem;color:var(--sage);text-decoration:none}
+.foot-legal a:hover{color:var(--gold-light)}
+footer .legal{margin:1.6rem auto 0;padding-top:1.2rem;border-top:1px solid var(--line);font-size:.8rem;line-height:1.7;color:var(--sage);max-width:34rem}
+footer .legal a{color:var(--sage)}
+
+
+
+/* Shorter screens, such as laptops: keep each question on one screen */
+@media (max-height:900px){
+  .wrap{padding-top:1rem}
+  .card{padding-top:1.6rem;padding-bottom:1.8rem}
+  .qhead{padding-bottom:.6rem}
+  .qcode{margin:1rem 0 .6rem}
+  .question{font-size:clamp(1.5rem,3.4vw,1.95rem);margin-bottom:1.3rem}
+  .answers{gap:.6rem}
+  .answer{min-height:52px;padding:.6rem 1.1rem}
+  .back{margin-top:.9rem}
+}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation:none!important;transition:none!important}
+}
+.nowrap{white-space:nowrap}
+</style>
+</head>
+<body>
+
+<div class="progress" id="progress" aria-hidden="true"><span></span></div>
+
+<div class="wrap">
+
+  <main class="card">
+
+    <!-- Screen 1: intro -->
+    <section class="screen intro active" id="s-intro" aria-labelledby="intro-h">
+      <p class="label kicker">The AI Presence Check</p>
+      <h1 id="intro-h" tabindex="-1">How well do you really know your business' AI presence?</h1>
+      <p class="lede">12 quick questions to uncover how much you know about how your business is found, understood and acted on online.</p>
+      <div class="facts">
+        <p>There are no technical questions.</p>
+        <p>Just answer Yes, No or I'm not sure.</p>
+        <p class="quiet">Takes about 3 minutes.</p>
+      </div>
+      <button class="btn btn-full" type="button" id="start">LET'S BEGIN</button>
+    </section>
+
+    <!-- Screens 2 to 13: one question at a time -->
+    <section class="screen" id="s-question" aria-labelledby="q-text">
+      <div class="qhead">
+        <p class="label section" id="q-section"></p>
+        <span class="count" id="q-count" aria-live="polite"></span>
+      </div>
+      <p class="label qcode" id="q-code"></p>
+      <h2 class="question" id="q-text" tabindex="-1"></h2>
+      <div class="answers" role="group" aria-labelledby="q-text">
+        <button class="answer" type="button" data-value="yes" aria-pressed="false"><span class="dot" aria-hidden="true"></span>Yes</button>
+        <button class="answer" type="button" data-value="no" aria-pressed="false"><span class="dot" aria-hidden="true"></span>No</button>
+        <button class="answer" type="button" data-value="not_sure" aria-pressed="false"><span class="dot" aria-hidden="true"></span>I'm not sure</button>
+      </div>
+      <button class="back" type="button" id="back">Back</button>
+    </section>
+
+    <!-- Screen 14: scores and email capture -->
+    <section class="screen" id="s-results" aria-labelledby="r-h">
+      <p class="label kicker">The AI Presence Check</p>
+      <h1 id="r-h" tabindex="-1">Your AI Presence Check is complete</h1>
+
+      <div class="score">
+        <p class="label kicker">Your AI Presence Score</p>
+        <p class="figure"><span id="r-total">0</span><small>/12</small></p>
+      </div>
+
+      <p>Your answers have looked at three areas of your business:</p>
+      <ul class="areas">
+        <li style="--c:var(--gold)">
+          <div class="area-top"><span class="area-name">AI Presence</span><span class="area-score"><span class="pips" data-pips="0" aria-hidden="true"></span><span data-score="0"></span></span></div>
+          <p>How much you know about how AI finds and understands your business.</p>
+        </li>
+        <li style="--c:var(--green)">
+          <div class="area-top"><span class="area-name">Customer Journey</span><span class="area-score"><span class="pips" data-pips="1" aria-hidden="true"></span><span data-score="1"></span></span></div>
+          <p>How clearly someone can understand your offer and take the next step.</p>
+        </li>
+        <li style="--c:var(--gold-pale)">
+          <div class="area-top"><span class="area-name">Control</span><span class="area-score"><span class="pips" data-pips="2" aria-hidden="true"></span><span data-score="2"></span></span></div>
+          <p>How much visibility you have over what is happening in your business.</p>
+        </li>
+      </ul>
+
+      <p class="unsure" id="r-unsure" hidden></p>
+
+      <hr class="rule">
+
+      <div class="gate">
+        <h2>Ready to see what your answers reveal?</h2>
+        <p>Your result is ready.</p>
+        <p>Enter your details to receive your result and the area your answers suggest deserves the most attention.</p>
+
+        <form id="form" novalidate>
+          <div class="field">
+            <label class="label" for="first-name">First name</label>
+            <input id="first-name" name="first_name" type="text" autocomplete="given-name" required maxlength="80">
+          </div>
+          <div class="field">
+            <label class="label" for="email">Email address</label>
+            <input id="email" name="email" type="email" autocomplete="email" inputmode="email" required maxlength="254">
+          </div>
+          <div class="hp" aria-hidden="true">
+            <label for="company-website">Leave this empty</label>
+            <input id="company-website" name="company_website" type="text" tabindex="-1" autocomplete="off">
+          </div>
+          <div class="consent">
+            <input id="consent" type="checkbox">
+            <label for="consent" id="consent-text">I agree to Medraf Digital Limited using my name and email address to send me my result, as set out in the <a id="privacy-link" href="#" target="_blank" rel="noopener">privacy policy</a>.</label>
+          </div>
+          <div class="consent consent-optional">
+            <input id="marketing" type="checkbox">
+            <label for="marketing" id="marketing-text">I would also like to receive occasional emails from Medraf Digital Limited about the Presence Audit and related services. I can unsubscribe at any time.</label>
+          </div>
+          <p class="error" id="error" role="alert"></p>
+          <button class="btn btn-full" type="submit" id="submit">SEND ME MY RESULT</button>
+        </form>
+
+        <p class="small">This check is a self-assessment. It does not examine or verify your actual online or AI presence.</p>
+      </div>
+    </section>
+
+    <!-- Screen 15: confirmation -->
+    <section class="screen" id="s-done" aria-labelledby="d-h">
+      <p class="label kicker">The AI Presence Check</p>
+      <h1 id="d-h" tabindex="-1">Thank you</h1>
+      <p class="lede" id="d-text" style="margin-top:1.25rem"></p>
+      <p class="quiet">If you cannot see it, it is worth checking your junk folder.</p>
+      <div class="after">
+        <a class="after-link" href="presence-audit.html">Read about the AI Presence Audit</a>
+        <a class="after-link" href="index.html">Back to Medraf Digital</a>
+      </div>
+    </section>
+
+  </main>
+
+  <footer>
+    <a class="brand" href="index.html"><img class="mark" src="images/firefly-mark.png" alt="" width="48" height="48"><b>MEDRAF DIGITAL</b></a>
+    <p class="brand-line">I build calm systems that give you your time back.</p>
+    <ul class="foot-nav">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="oak.html">The Oak</a></li>
+      <li><a href="offers.html">Offers</a></li>
+      <li><a href="creatures.html">Smart Creatures</a></li>
+      <li><a href="nook.html">The Nook</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="book.html">Book a call</a></li>
+    </ul>
+    <p class="foot-contact"><a href="mailto:hello@medrafdigital.co.uk">hello@medrafdigital.co.uk</a></p>
+    <p class="diolch">Diolch.</p>
+    <ul class="foot-legal">
+      <li><a id="privacy-foot" href="privacy.html">Privacy Policy</a></li>
+      <li><a href="terms.html">Website Terms</a></li>
+      <li><a href="cookies.html">Cookie Policy</a></li>
+      <li><a href="complaints.html">Data Protection Complaints Policy</a></li>
+    </ul>
+    <p class="legal">
+      Medraf Digital Limited &middot; Registered in England and Wales &middot; Company No. 17281956 &middot; <span class="nowrap">VAT No. 523 7259 88</span><br>
+      Registered office: Irish Square, Upper Denbigh Road, St Asaph, Denbighshire, LL17 0RN<br>
+      &copy; 2026 Medraf Digital Limited. All rights reserved.
+    </p>
+  </footer>
+</div>
+
+<script>
+/* =====================================================================
+   SETTINGS. Change these two lines before going live.
+   ===================================================================== */
+const WEBHOOK_URL = "https://n8n.srv1142137.hstgr.cloud/webhook/ai-presence-check";
+const PRIVACY_POLICY_URL = "privacy.html";
+/* ===================================================================== */
+
+(function () {
+  "use strict";
+
+  const SECTIONS = [
+    { name: "AI PRESENCE",      key: "ai_presence",      colour: "#c9a96e" },
+    { name: "CUSTOMER JOURNEY", key: "customer_journey", colour: "#9dc48c" },
+    { name: "CONTROL",          key: "control",          colour: "#e8d5b0" }
+  ];
+
+  const QUESTIONS = [
+    { code: "AP1", s: 0, title: "WHAT AI SAYS ABOUT YOU", text: "Do you know what AI says about your business when someone asks about you by name?" },
+    { code: "AP2", s: 0, title: "BEING DISCOVERED", text: "Do you know whether your business appears when someone asks AI for what you do, without mentioning your name?" },
+    { code: "AP3", s: 0, title: "WHERE THE INFORMATION COMES FROM", text: "Do you know where AI is getting its information about your business from?" },
+    { code: "AP4", s: 0, title: "WHAT YOU SELL NOW", text: "Does everything AI finds describe what you sell now?" },
+    { code: "CJ1", s: 1, title: "YOUR OFFER", text: "Can you explain in one sentence who you help, what you help them with and what changes for them?" },
+    { code: "CJ2", s: 1, title: "FIRST IMPRESSION", text: "Would someone discovering you for the first time understand within seconds what you do, who it's for and what to do next?" },
+    { code: "CJ3", s: 1, title: "AFTER THE ENQUIRY", text: "Do you know what happens after someone makes an enquiry, from their first contact through to your response?" },
+    { code: "CJ4", s: 1, title: "TAKING THE NEXT STEP", text: "Can someone take the next step with your business when you're not available?" },
+    { code: "CT1", s: 2, title: "WHAT PEOPLE FIND", text: "Do you know whether the reviews and evidence people find online reflect what you sell now?" },
+    { code: "CT2", s: 2, title: "USING AI", text: "When you use AI for your business, can you get consistently useful results that sound like you?" },
+    { code: "CT3", s: 2, title: "YOUR WEBSITE", text: "Do you know when your website was last checked from end to end?" },
+    { code: "CT4", s: 2, title: "YOUR ENQUIRIES", text: "Could you tell me where your last five enquiries came from?" }
+  ];
+
+  const WORDS = ["zero","one","two","three","four","five","six","seven","eight","nine","ten","eleven","twelve"];
+
+  const answers = new Array(QUESTIONS.length).fill(null);
+  let current = 0;
+  let locked = false;
+  let results = null;
+
+  const $ = (id) => document.getElementById(id);
+  const root = document.documentElement;
+  const progress = $("progress");
+  const bar = progress.querySelector("span");
+  const answerButtons = Array.from(document.querySelectorAll(".answer"));
+  const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  $("privacy-link").href = PRIVACY_POLICY_URL;
+  $("privacy-foot").href = PRIVACY_POLICY_URL;
+
+  function show(id, focusId) {
+    document.querySelectorAll(".screen").forEach((el) => el.classList.remove("active"));
+    const el = $(id);
+    // restart the fade on every change
+    void el.offsetWidth;
+    el.classList.add("active");
+    window.scrollTo(0, 0);
+    if (focusId) $(focusId).focus({ preventScroll: true });
+  }
+
+  function setAccent(colour) {
+    root.style.setProperty("--accent", colour);
+  }
+
+  function renderQuestion() {
+    const q = QUESTIONS[current];
+    const section = SECTIONS[q.s];
+    setAccent(section.colour);
+    $("q-section").textContent = section.name;
+    $("q-count").textContent = (current + 1) + " of " + QUESTIONS.length;
+    const codeEl = $("q-code");
+    codeEl.textContent = "";
+    const num = document.createElement("span");
+    num.className = "num";
+    num.textContent = q.code + ":";
+    codeEl.appendChild(num);
+    codeEl.appendChild(document.createTextNode(" " + q.title));
+    $("q-text").textContent = q.text;
+    answerButtons.forEach((b) => b.setAttribute("aria-pressed", String(b.dataset.value === answers[current])));
+    progress.classList.add("on");
+    bar.style.width = ((current) / QUESTIONS.length * 100) + "%";
+    show("s-question", "q-text");
+  }
+
+  $("start").addEventListener("click", () => {
+    current = 0;
+    renderQuestion();
+  });
+
+  answerButtons.forEach((btn) => {
+    btn.addEventListener("click", () => {
+      if (locked) return;
+      locked = true;
+      answers[current] = btn.dataset.value;
+      answerButtons.forEach((b) => b.setAttribute("aria-pressed", String(b === btn)));
+      bar.style.width = ((current + 1) / QUESTIONS.length * 100) + "%";
+      setTimeout(() => {
+        locked = false;
+        if (current < QUESTIONS.length - 1) {
+          current += 1;
+          renderQuestion();
+        } else {
+          showResults();
+        }
+      }, reduceMotion ? 120 : 380);
+    });
+  });
+
+  $("back").addEventListener("click", () => {
+    if (locked) return;
+    if (current === 0) {
+      progress.classList.remove("on");
+      setAccent(SECTIONS[0].colour);
+      show("s-intro", "intro-h");
+      return;
+    }
+    current -= 1;
+    renderQuestion();
+  });
+
+  function calculate() {
+    const sectionScores = [0, 0, 0];
+    const sectionNotSure = [0, 0, 0];
+    QUESTIONS.forEach((q, i) => {
+      if (answers[i] === "yes") sectionScores[q.s] += 1;
+      if (answers[i] === "not_sure") sectionNotSure[q.s] += 1;
+    });
+    const total = sectionScores.reduce((a, b) => a + b, 0);
+    const notSure = sectionNotSure.reduce((a, b) => a + b, 0);
+
+    // Result key only. Nothing about what a key means lives in this page.
+    let type;
+    if (total >= 10) {
+      type = "unverified";
+    } else if (sectionNotSure[0] >= 3) {
+      type = "not_seen";
+    } else {
+      const lowest = Math.min.apply(null, sectionScores);
+      const index = sectionScores.indexOf(lowest); // ties go to the earlier section
+      type = ["not_seen", "next_step", "on_memory"][index];
+    }
+    return { sectionScores, sectionNotSure, total, notSure, type };
+  }
+
+  function showResults() {
+    results = calculate();
+    progress.classList.remove("on");
+    setAccent(SECTIONS[0].colour);
+
+    $("r-total").textContent = results.total;
+    document.querySelectorAll("[data-pips]").forEach((el) => {
+      const s = results.sectionScores[Number(el.dataset.pips)];
+      el.innerHTML = "";
+      for (let i = 0; i < 4; i++) {
+        const pip = document.createElement("i");
+        if (i < s) pip.className = "on";
+        el.appendChild(pip);
+      }
+    });
+    document.querySelectorAll("[data-score]").forEach((el) => {
+      el.textContent = results.sectionScores[Number(el.dataset.score)] + "/4";
+    });
+
+    const unsure = $("r-unsure");
+    if (results.notSure >= 2) {
+      unsure.textContent = "You answered \u201CI\u2019m not sure\u201D " + WORDS[results.notSure] + " times.";
+      unsure.hidden = false;
+    } else {
+      unsure.hidden = true;
+    }
+    show("s-results", "r-h");
+  }
+
+  const form = $("form");
+  const errorEl = $("error");
+  const submitBtn = $("submit");
+
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    errorEl.textContent = "";
+
+    const firstName = $("first-name").value.trim();
+    const email = $("email").value.trim().toLowerCase();
+
+    if (!firstName) { errorEl.textContent = "Please enter your first name."; $("first-name").focus(); return; }
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email)) { errorEl.textContent = "Please enter a valid email address."; $("email").focus(); return; }
+    if (!$("consent").checked) { errorEl.textContent = "Please tick the box to agree to your result being sent to you."; $("consent").focus(); return; }
+
+    const done = () => {
+      $("d-h").textContent = "Thank you, " + firstName;
+      $("d-text").textContent = "Your result is on its way to " + email + ".";
+      show("s-done", "d-h");
+    };
+
+    // Filled only by automated form fillers. Quietly finish without sending.
+    if ($("company-website").value) { done(); return; }
+
+    if (!/^https:\/\//.test(WEBHOOK_URL)) {
+      errorEl.textContent = "This form is not connected yet. The webhook address still needs to be added.";
+      return;
+    }
+
+    const r = results || calculate();
+    const answerMap = {};
+    QUESTIONS.forEach((q, i) => { answerMap[q.code] = answers[i]; });
+
+    const payload = {
+      form: "ai_presence_check",
+      submitted_at: new Date().toISOString(),
+      first_name: firstName,
+      email: email,
+      consent: true,
+      consent_text: $("consent-text").textContent.replace(/\s+/g, " ").trim(),
+      privacy_policy_url: PRIVACY_POLICY_URL,
+      marketing_consent: $("marketing").checked,
+      marketing_consent_text: $("marketing").checked ? $("marketing-text").textContent.replace(/\s+/g, " ").trim() : "",
+      answers: answerMap,
+      score_total: r.total,
+      score_ai_presence: r.sectionScores[0],
+      score_customer_journey: r.sectionScores[1],
+      score_control: r.sectionScores[2],
+      not_sure_total: r.notSure,
+      not_sure_ai_presence: r.sectionNotSure[0],
+      not_sure_customer_journey: r.sectionNotSure[1],
+      not_sure_control: r.sectionNotSure[2],
+      result_type: r.type
+    };
+
+    submitBtn.disabled = true;
+    submitBtn.textContent = "SENDING";
+
+    try {
+      const res = await fetch(WEBHOOK_URL, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+        credentials: "omit",
+        referrerPolicy: "no-referrer"
+      });
+      if (!res.ok) throw new Error("status " + res.status);
+      done();
+    } catch (err) {
+      errorEl.textContent = "Your details could not be sent just now. Please check your connection and try again.";
+      submitBtn.disabled = false;
+      submitBtn.textContent = "SEND ME MY RESULT";
+    }
+  });
+})();
+</script>
+</body>
+</html>
