@@ -561,13 +561,13 @@ footer .legal a{color:var(--sage)}
       </div>
 
       <div class="result-row loss">
-        <p class="result-label">Potential value of those enquiries each month</p>
-        <p class="result-value" id="monthlyOut">£25,200</p>
+        <p class="result-label">What those enquiries could be worth each month at your current conversion rate</p>
+        <p class="result-value" id="monthlyOut">£7,560</p>
       </div>
 
       <div class="result-row loss annual">
-        <p class="result-label">Potential value over a year</p>
-        <p class="result-value" id="annualOut">£302,400</p>
+        <p class="result-label">Over a year</p>
+        <p class="result-value" id="annualOut">£90,720</p>
       </div>
 
       <p class="estimate-note">This is an illustration based on the figures and assumptions you entered. It shows the potential value attached to those enquiries, not confirmed lost revenue.</p>
@@ -712,7 +712,7 @@ function calculate(){
      calculated from that same figure, so the numbers on screen always
      multiply through exactly when a visitor checks them by hand. */
   var lost = Math.round(notWon * share * 10) / 10;
-  var monthly = lost * v;
+  var monthly = lost * c * v;
   var annual = monthly * 12;
 
   document.getElementById('enquiriesOut').textContent = e;
