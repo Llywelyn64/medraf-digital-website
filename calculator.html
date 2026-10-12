@@ -224,12 +224,15 @@ input[type=range]::-moz-range-thumb{
 /* share options */
 .share-options{
   display:grid;
-  grid-template-columns:repeat(3,1fr);
+  grid-template-columns:repeat(2,1fr);
   gap:10px;
 }
-@media(max-width:440px){
+@media(max-width:340px){
   .share-options{grid-template-columns:1fr}
 }
+.share-btn .share-pc{display:block;font-size:13px;color:var(--sage);margin-top:2px}
+.share-btn[aria-pressed="true"] .share-pc{color:var(--gold-pale)}
+.share-btn:focus-visible{outline:2px solid var(--gold-light);outline-offset:2px}
 .share-btn{
   font-family:'Lato',sans-serif;
   font-size:15px;
@@ -290,6 +293,16 @@ input[type=range]::-moz-range-thumb{
   font-size:14px;
   color:var(--sage);
   margin-top:16px;
+}
+.annual-note{
+  font-size:13px;
+  color:var(--sage);
+  margin-top:6px;
+}
+.pending-note{
+  font-size:15px;
+  color:var(--gold-pale);
+  margin-bottom:6px;
 }
 
 /* ---------- actions ---------- */
@@ -539,9 +552,10 @@ footer .legal a{color:var(--sage)}
         <span class="field-label" id="shareLabel">Enquiries that went cold</span>
         <p class="field-hint">Of the enquiries you do not win, how many do you think went cold because nobody replied quickly enough? This is your judgement, not ours.</p>
         <div class="share-options" role="group" aria-labelledby="shareLabel">
-          <button type="button" class="share-btn" data-share="0.5" aria-pressed="false">About half</button>
-          <button type="button" class="share-btn" data-share="0.6" aria-pressed="true">Around six in ten</button>
-          <button type="button" class="share-btn" data-share="0.8" aria-pressed="false">Around eight in ten</button>
+          <button type="button" class="share-btn" data-share="0.1" aria-pressed="false">A few <span class="share-pc">10%</span></button>
+          <button type="button" class="share-btn" data-share="0.25" aria-pressed="false">About a quarter <span class="share-pc">25%</span></button>
+          <button type="button" class="share-btn" data-share="0.5" aria-pressed="false">About half <span class="share-pc">50%</span></button>
+          <button type="button" class="share-btn" data-share="0.75" aria-pressed="false">Most <span class="share-pc">75%</span></button>
         </div>
       </div>
 
@@ -550,6 +564,8 @@ footer .legal a{color:var(--sage)}
     <div class="results" aria-live="polite">
       <h2>What that suggests</h2>
 
+      <p class="pending-note" id="pendingNote">Choose how many enquiries went cold to see your estimate.</p>
+
       <div class="result-row">
         <p class="result-label">Enquiries not won each month</p>
         <p class="result-value" id="notWonOut">21</p>
@@ -557,17 +573,18 @@ footer .legal a{color:var(--sage)}
 
       <div class="result-row">
         <p class="result-label">Of those, lost to a slow or missed reply</p>
-        <p class="result-value" id="lostOut">12.6</p>
+        <p class="result-value" id="lostOut">&ndash;</p>
       </div>
 
       <div class="result-row loss">
         <p class="result-label">What those enquiries could be worth each month at your current conversion rate</p>
-        <p class="result-value" id="monthlyOut">£7,560</p>
+        <p class="result-value" id="monthlyOut">&ndash;</p>
       </div>
 
       <div class="result-row loss annual">
         <p class="result-label">Over a year</p>
-        <p class="result-value" id="annualOut">£90,720</p>
+        <p class="result-value" id="annualOut">&ndash;</p>
+        <p class="annual-note">Assumes similar enquiry levels, conversion rates and average client values throughout the year.</p>
       </div>
 
       <p class="estimate-note">This is an illustration based on the figures and assumptions you entered. It shows the potential value attached to those enquiries, not confirmed lost revenue.</p>
@@ -685,16 +702,18 @@ var enquiries = document.getElementById('enquiries');
 var conversion = document.getElementById('conversion');
 var clientValue = document.getElementById('clientValue');
 var shareButtons = document.querySelectorAll('.share-btn');
-var share = 0.6;
+var share = null; /* no option is chosen until the visitor picks one */
 
 var gbp = new Intl.NumberFormat('en-GB', {
   style: 'currency', currency: 'GBP', maximumFractionDigits: 0
 });
 
-/* Whole enquiries shown as whole numbers, otherwise one decimal place. */
+/* Enquiry counts are held to two decimal places and shown without
+   trailing zeros: 21, 2.1, 5.25. Two places are needed because the
+   quarter option can produce figures such as 5.25. */
+function round2(n){ return Math.round(n * 100) / 100; }
 function formatCount(n){
-  var oneDp = Math.round(n * 10) / 10;
-  return (oneDp % 1 === 0) ? String(oneDp) : oneDp.toFixed(1);
+  return String(round2(n));
 }
 
 function paintSlider(el){
@@ -707,19 +726,39 @@ function calculate(){
   var c = parseFloat(conversion.value) / 100;
   var v = parseFloat(clientValue.value);
 
-  var notWon = e * (1 - c);
-  /* The lost figure is held to one decimal place, and the money is
-     calculated from that same figure, so the numbers on screen always
-     multiply through exactly when a visitor checks them by hand. */
-  var lost = Math.round(notWon * share * 10) / 10;
-  var monthly = lost * c * v;
-  var annual = monthly * 12;
+  var notWon = round2(e * (1 - c));
 
   document.getElementById('enquiriesOut').textContent = e;
   document.getElementById('conversionOut').textContent = conversion.value;
   document.getElementById('clientValueOut').textContent = gbp.format(v);
-
   document.getElementById('notWonOut').textContent = formatCount(notWon);
+
+  paintSlider(enquiries);
+  paintSlider(conversion);
+  paintSlider(clientValue);
+
+  /* Until the visitor chooses how many enquiries went cold, no
+     money figure is shown and nothing can be sent. */
+  if (share === null){
+    document.getElementById('pendingNote').hidden = false;
+    document.getElementById('lostOut').textContent = '\u2013';
+    document.getElementById('monthlyOut').textContent = '\u2013';
+    document.getElementById('annualOut').textContent = '\u2013';
+    current = {};
+    return;
+  }
+  document.getElementById('pendingNote').hidden = true;
+
+  /* The lost figure is held to two decimal places, and the money is
+     calculated from that same figure, so the numbers on screen
+     multiply through when a visitor checks them by hand. */
+  var lost = round2(notWon * share);
+  /* Monthly is rounded to the nearest whole pound, and the annual
+     figure is that rounded monthly figure times 12, so the screen,
+     the payload and the email always agree. */
+  var monthly = Math.round(lost * c * v);
+  var annual = monthly * 12;
+
   document.getElementById('lostOut').textContent = formatCount(lost);
   document.getElementById('monthlyOut').textContent = gbp.format(monthly);
   document.getElementById('annualOut').textContent = gbp.format(annual);
@@ -741,10 +780,6 @@ function calculate(){
       potential_annual_value: gbp.format(annual)
     }
   };
-
-  paintSlider(enquiries);
-  paintSlider(conversion);
-  paintSlider(clientValue);
 }
 
 [enquiries, conversion, clientValue].forEach(function(el){
@@ -798,6 +833,13 @@ function sendNumbers(thenBook){
   if (submitting) return;
 
   note('');
+
+  if (share === null || current.potential_monthly_value === undefined){
+    note('Please choose how many enquiries went cold first, so there is a result to send.');
+    var firstShare = document.querySelector('.share-btn');
+    if (firstShare) firstShare.focus();
+    return;
+  }
 
   if (!firstNameEl.value.trim()){
     note('Please add your first name so I know who I am writing to.');
