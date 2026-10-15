@@ -109,9 +109,10 @@ p{margin:0 0 1.1rem}
   background:var(--base-2);border:1px solid var(--line);border-radius:4px;color:var(--body);
   transition:border-color .2s,background-color .2s,color .2s;
 }
-.answer:hover{border-color:var(--line-hover)}
+.answer:hover{border-color:var(--gold-light);background:rgba(224,196,106,.06);box-shadow:inset 0 1px 0 rgba(224,196,106,.12), 0 0 20px rgba(224,196,106,.22)}
+.answer:hover .dot{border-color:var(--gold-light);box-shadow:0 0 8px 1px rgba(224,196,106,.3)}
 .answer .dot{flex:0 0 auto;width:14px;height:14px;border-radius:50%;border:1px solid var(--line-hover);transition:background-color .2s,border-color .2s,box-shadow .2s}
-.answer[aria-pressed="true"]{border-color:var(--accent);background:rgba(201,169,110,.08);color:var(--cream)}
+.answer[aria-pressed="true"]{border-color:var(--accent);background:rgba(201,169,110,.1);color:var(--cream);box-shadow:inset 0 1px 0 rgba(224,196,106,.18), 0 0 24px rgba(224,196,106,.28)}
 .answer[aria-pressed="true"] .dot{background:var(--accent);border-color:var(--accent);box-shadow:0 0 8px 1px rgba(224,196,106,.35)}
 .back{margin-top:1.75rem;background:none;border:0;padding:.5rem 0;cursor:pointer;color:var(--sage);font-size:1rem;text-decoration:underline;text-decoration-color:var(--line-hover);text-underline-offset:4px}
 .back:hover{color:var(--cream)}

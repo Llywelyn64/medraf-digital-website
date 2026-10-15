@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="referrer" content="no-referrer">
+<link rel="stylesheet" href="fonts.css">
+<title>Lead magnet examples | Medraf Digital</title>
+<meta name="description" content="Five kinds of interactive tool a website can use, with working examples you can try.">
+<meta property="og:image" content="https://medrafdigital.co.uk/og-image.jpg">
+<meta name="twitter:image" content="https://medrafdigital.co.uk/og-image.jpg">
+<style>
+:root{
+  --base:#0e130f; --base-2:#141b15; --panel:#1a231c;
+  --gold:#c9a96e; --gold-light:#e0c46a; --gold-pale:#e8d5b0;
+  --cream:#f5f0e8; --cream-muted:#d4bea0; --body:#ded8c9;
+  --sage:#a5b9a0; --green:#9dc48c; --green-rule:#6f9e62;
+  --line:rgba(201,169,110,.22); --line-hover:rgba(201,169,110,.45);
+  --display:"Cormorant Garamond", Garamond, "Times New Roman", serif;
+  --label:"Cinzel", "Trajan Pro", Georgia, serif;
+  --text:"Lato", "Helvetica Neue", Arial, sans-serif;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{
+  margin:0; min-height:100vh; min-height:100dvh;
+  background:var(--base); color:var(--body);
+  font-family:var(--text); font-size:18px; line-height:1.8;
+  -webkit-font-smoothing:antialiased;
+  background-image:radial-gradient(ellipse 70% 45% at 50% -10%, rgba(224,196,106,.07), transparent 70%);
+  background-repeat:no-repeat;
+}
+a{color:var(--gold)}
+a:hover{color:var(--gold-light)}
+:focus-visible{outline:2px solid var(--gold-light);outline-offset:3px}
+.wrap{max-width:44rem;margin:0 auto;padding:1.25rem 1rem 1.5rem;display:flex;flex-direction:column;min-height:100vh;min-height:100dvh}
+.brand{text-decoration:none;display:inline-flex;align-items:center;gap:.7rem;margin:0 0 .6rem}
+.mark{display:block;width:40px;height:40px}
+.brand b{font-family:var(--label);font-weight:500;font-size:.72rem;letter-spacing:.16em;color:var(--gold)}
+main{flex:0 0 auto}
+.label{font-family:var(--label);font-weight:500;font-size:.74rem;letter-spacing:.18em;line-height:1.6;text-transform:uppercase;margin:0}
+.kicker{color:var(--gold)}
+
+/* Header, with a warmer gold wash */
+.head{position:relative;margin:0 0 2.5rem;padding:2.5rem 0 2.25rem;text-align:center}
+.head::before{content:"";position:absolute;inset:0;background:radial-gradient(ellipse 80% 120% at 50% 0%, rgba(224,196,106,.16), transparent 70%);pointer-events:none}
+.head > *{position:relative}
+h1{font-family:var(--display);color:var(--cream);font-weight:500;font-size:clamp(2.1rem,7vw,3rem);line-height:1.12;margin:.8rem 0 0}
+.flourish{display:block;width:120px;height:18px;margin:1.1rem auto 0}
+.flourish svg{display:block;width:100%;height:100%}
+.lede{font-family:var(--display);font-style:italic;font-size:1.32rem;line-height:1.55;color:var(--gold-pale);max-width:34rem;margin:1.5rem auto 0}
+
+/* The five panels */
+.grid{display:flex;flex-direction:column;gap:1.25rem}
+.item{
+  position:relative;padding:2rem 1.6rem 1.8rem 1.9rem;border-radius:8px;
+  background:linear-gradient(180deg,#1b241c 0%,#141b15 100%);
+  border:1px solid var(--line);border-left:3px solid var(--green-rule);
+  box-shadow:0 0 0 1px rgba(201,169,110,.05), 0 14px 36px rgba(0,0,0,.35);
+  transition:border-color .3s, box-shadow .3s;
+  overflow:hidden;
+}
+.item::before{content:"";position:absolute;inset:0 0 auto 0;height:1px;
+  background:linear-gradient(90deg,transparent,rgba(224,196,106,.6) 42%,rgba(157,196,140,.55) 62%,transparent)}
+.item:hover{border-color:rgba(157,196,140,.5);border-left-color:var(--green);box-shadow:inset 0 1px 0 rgba(224,196,106,.12), 0 0 30px rgba(157,196,140,.16), 0 14px 36px rgba(0,0,0,.4)}
+.item-head{display:flex;align-items:center;gap:.9rem;margin:0 0 1rem}
+.leaf{flex:0 0 auto;width:30px;height:30px;color:var(--green)}
+.leaf svg{display:block;width:100%;height:100%}
+.item h2{font-family:var(--display);color:var(--cream);font-weight:500;font-size:clamp(1.55rem,5vw,2rem);line-height:1.2;margin:0}
+.item p{margin:0 0 1.3rem}
+@media (min-width:600px){.item{padding:2.2rem 2.2rem 2rem}}
+
+.try{display:inline-flex;align-items:center;gap:.55rem;font-family:var(--label);font-weight:600;font-size:.78rem;letter-spacing:.14em;text-transform:uppercase;text-decoration:none;color:var(--gold-light)}
+.try + .try{margin-top:.7rem}
+.try .arrow{transition:transform .2s}
+.try:hover{color:var(--green)}
+.try:hover .arrow{transform:translateX(4px)}
+.soon{display:inline-flex;align-items:center;gap:.5rem;font-family:var(--label);font-weight:500;font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:var(--sage)}
+.soon::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--green)}
+
+.close{margin:2.5rem 0 0;padding:2.25rem 1.6rem;border-radius:8px;text-align:center;
+  background:radial-gradient(ellipse 90% 140% at 50% 0%, rgba(224,196,106,.12), transparent 70%), linear-gradient(180deg,#1b241c 0%,#141b15 100%);
+  border:1px solid var(--line-hover);
+  box-shadow:inset 0 1px 0 rgba(224,196,106,.14), 0 14px 36px rgba(0,0,0,.35)}
+.close p{margin:0 0 1.5rem;color:var(--cream);font-family:var(--display);font-size:1.3rem;font-style:italic;line-height:1.5}
+.btn{display:inline-flex;align-items:center;justify-content:center;min-height:54px;padding:.9rem 2.2rem;border-radius:4px;cursor:pointer;font-family:var(--label);font-weight:600;font-size:.8rem;letter-spacing:.14em;text-decoration:none;color:#1a1408;border:1px solid rgba(240,214,140,.85);background:linear-gradient(180deg,#ecd49a 0%,#d9bb7c 38%,#c9a96e 62%,#b8965c 100%);box-shadow:inset 0 1px 0 rgba(255,244,214,.55),0 0 18px rgba(224,196,106,.22),0 4px 14px rgba(0,0,0,.35);text-shadow:0 1px 0 rgba(255,240,200,.35);transition:filter .2s,box-shadow .2s}
+.btn:hover{filter:brightness(1.06);color:#1a1408;box-shadow:inset 0 1px 0 rgba(255,244,214,.65),0 0 28px rgba(224,196,106,.34),0 4px 14px rgba(0,0,0,.35)}
+
+footer{margin-top:3rem;padding-top:2rem;text-align:center;font-size:.85rem;color:var(--sage);border-top:1px solid var(--line)}
+footer a{color:var(--sage)}
+.brand-line{margin:.9rem 0 0;font-size:.95rem;color:var(--sage)}
+.foot-nav,.foot-legal{list-style:none;display:flex;flex-wrap:wrap;justify-content:center;gap:.4rem 1.1rem;margin:1.4rem 0 0;padding:0}
+.foot-nav a{font-size:.95rem;color:var(--body);text-decoration:none}
+.foot-nav a:hover{color:var(--gold-light)}
+.foot-contact{margin:1.3rem 0 0}
+.foot-contact a{color:var(--sage);text-decoration:none}
+.diolch{font-family:var(--display);font-style:italic;font-size:1.25rem;color:var(--gold-pale);margin:.5rem 0 0}
+.foot-legal{margin-top:1.3rem}
+.foot-legal a{font-size:.85rem;color:var(--sage);text-decoration:none}
+.foot-legal a:hover{color:var(--gold-light)}
+footer .legal{margin:1.6rem auto 0;padding-top:1.2rem;border-top:1px solid var(--line);font-size:.8rem;line-height:1.7;color:var(--sage);max-width:34rem}
+footer .legal a{color:var(--sage)}
+.nowrap{white-space:nowrap}
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{transition:none!important}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <main>
+    <div class="head">
+      <p class="label kicker">Lead magnet examples</p>
+      <h1>Five kinds of interactive tool</h1>
+      <span class="flourish" aria-hidden="true"><svg viewBox="0 0 120 18" fill="none" stroke="#c9a96e" stroke-width="1.2"><path d="M6 9h38" /><path d="M76 9h38" /><path d="M60 3c-5 0-7 6-12 6 5 0 7 6 12 6 5 0 7-6 12-6-5 0-7-6-12-6z" fill="rgba(224,196,106,.18)"/></svg></span>
+      <p class="lede">A good lead magnet gives a visitor something useful in a couple of minutes, whether or not they get in touch. Here are the five kinds, with working examples you can try.</p>
+    </div>
+
+    <div class="grid">
+
+      <div class="item">
+        <div class="item-head"><span class="leaf" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M12 21c0-7 0-12 7-17-1 7-3 11-7 13" /><path d="M12 21c0-5-1-9-5-12" /></svg></span><h2>A check</h2></div>
+        <p>A short set of questions that shows someone where they stand. They answer in a couple of minutes and get an honest read on how they are doing, with one thing worth looking at next. It suits people who are not yet sure they need you. Seeing where they stand is what makes them realise they could do better, and you are the person who shows them how.</p>
+        <a class="try" href="confidence-check.html">Try the AI Confidence Check <span class="arrow" aria-hidden="true">&rarr;</span></a>
+        <a class="try" href="presence-check.html">Try the AI Presence Check <span class="arrow" aria-hidden="true">&rarr;</span></a>
+      </div>
+
+      <div class="item">
+        <div class="item-head"><span class="leaf" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M12 21c0-7 0-12 7-17-1 7-3 11-7 13" /><path d="M12 21c0-5-1-9-5-12" /></svg></span><h2>A calculator</h2></div>
+        <p>The visitor enters three or four numbers they already know, and sees one they did not: what something is costing them, what a change would save, how long until a point is reached. The figure does the persuading. When someone sees the number for themselves, they can see the problem is real, and booking a call to deal with it is the obvious next step.</p>
+        <a class="try" href="calculator.html">Try the Lost Enquiry Calculator <span class="arrow" aria-hidden="true">&rarr;</span></a>
+      </div>
+
+      <div class="item">
+        <div class="item-head"><span class="leaf" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M12 21c0-7 0-12 7-17-1 7-3 11-7 13" /><path d="M12 21c0-5-1-9-5-12" /></svg></span><h2>A readiness checklist</h2></div>
+        <p>A short list of what needs to be in place before a client is ready for your service. They tick off what they have, and see where the gaps are. When someone finds a gap, they can see they need help, and booking a call with you is the obvious next step. The ones who are ready arrive already prepared. The ones who are not know what to fix, and that you are the person to fix it.</p>
+        <span class="soon">Example coming soon</span>
+      </div>
+
+      <div class="item">
+        <div class="item-head"><span class="leaf" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M12 21c0-7 0-12 7-17-1 7-3 11-7 13" /><path d="M12 21c0-5-1-9-5-12" /></svg></span><h2>A chooser</h2></div>
+        <p>A few questions about the visitor&rsquo;s situation, then the one option that fits them, with the reason. It answers the question you get asked most, which of your services is right for me, before they have to ask it. They stop guessing, you stop explaining the same options to everyone, and they arrive at the call already pointed at the right thing.</p>
+        <a class="try" href="which-lead-magnet.html">Try the one you just used <span class="arrow" aria-hidden="true">&rarr;</span></a>
+      </div>
+
+      <div class="item">
+        <div class="item-head"><span class="leaf" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M12 21c0-7 0-12 7-17-1 7-3 11-7 13" /><path d="M12 21c0-5-1-9-5-12" /></svg></span><h2>A planner</h2></div>
+        <p>A few questions about where the visitor is and what matters most, and they leave with a short, ordered plan they can follow. It suits people who know what they want but not where to start. The plan is useful on its own, and that is the point: it shows them you understand their situation, so doing it properly with your help is the natural next step. A simple version is filled in once and kept. One that saves progress between visits is a larger build, priced on its own.</p>
+        <span class="soon">Example coming soon</span>
+      </div>
+
+    </div>
+
+    <div class="close">
+      <p>Every one was built the same way, around a real business and the people it serves.</p>
+      <a class="btn" href="offers.html#lead-magnets">About lead magnet design and build</a>
+    </div>
+  </main>
+
+  <footer>
+    <a class="brand" href="index.html"><img class="mark" src="images/firefly-mark.png" alt="" width="48" height="48"><b>MEDRAF DIGITAL</b></a>
+    <p class="brand-line">I build calm systems that give you your time back.</p>
+    <ul class="foot-nav">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="oak.html">The Oak</a></li>
+      <li><a href="offers.html">Offers</a></li>
+      <li><a href="creatures.html">Smart Creatures</a></li>
+      <li><a href="nook.html">The Nook</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="book.html">Book a call</a></li>
+    </ul>
+    <p class="foot-contact"><a href="mailto:hello@medrafdigital.co.uk">hello@medrafdigital.co.uk</a></p>
+    <p class="diolch">Diolch.</p>
+    <ul class="foot-legal">
+      <li><a href="privacy.html">Privacy Policy</a></li>
+      <li><a href="terms.html">Website Terms</a></li>
+      <li><a href="cookies.html">Cookie Policy</a></li>
+      <li><a href="complaints.html">Data Protection Complaints Policy</a></li>
+    </ul>
+    <p class="legal">
+      Medraf Digital Limited &middot; Registered in England and Wales &middot; Company No. 17281956 &middot; <span class="nowrap">VAT No. 523 7259 88</span><br>
+      Registered office: Irish Square, Upper Denbigh Road, St Asaph, Denbighshire, LL17 0RN<br>
+      &copy; 2026 Medraf Digital Limited. All rights reserved.
+    </p>
+  </footer>
+</div>
+<script src="https://www.dante-ai.com/embed.js" data-agent-id="1309cd90-9c0c-4668-8aa8-96bf3d8f520c" data-widget-key="wk_pIWOKcWcsJ07bxpToPsKrM2qinNfYR5O" crossorigin="anonymous" async></script>
+</body>
+</html>
