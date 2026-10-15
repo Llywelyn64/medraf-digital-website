@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="referrer" content="no-referrer">
+<link rel="stylesheet" href="fonts.css">
+<title>The AI Confidence Check | Medraf Digital</title>
+<meta name="description" content="Five quick questions about how confident you feel using AI in your everyday work. Results on screen, nothing collected.">
+<meta property="og:image" content="https://medrafdigital.co.uk/og-image.jpg">
+<meta name="twitter:image" content="https://medrafdigital.co.uk/og-image.jpg">
+<style>
+
+:root{
+  --base:#0e130f; --base-2:#141b15; --panel:#1a231c;
+  --gold:#c9a96e; --gold-light:#e0c46a; --gold-pale:#e8d5b0;
+  --cream:#f5f0e8; --cream-muted:#d4bea0; --body:#ded8c9;
+  --green:#9dc48c; --green-rule:#6f9e62; --sage:#a5b9a0;
+  --line:rgba(201,169,110,.22); --line-hover:rgba(201,169,110,.45);
+  --accent:var(--gold);
+  --display:"Cormorant Garamond", Garamond, "Times New Roman", serif;
+  --label:"Cinzel", "Trajan Pro", Georgia, serif;
+  --text:"Lato", "Helvetica Neue", Arial, sans-serif;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{
+  margin:0; min-height:100vh; min-height:100dvh;
+  background:var(--base); color:var(--body);
+  font-family:var(--text); font-size:18px; line-height:1.8;
+  -webkit-font-smoothing:antialiased;
+  background-image:radial-gradient(ellipse 70% 45% at 50% -10%, rgba(224,196,106,.07), transparent 70%);
+  background-repeat:no-repeat;
+}
+button{font:inherit;color:inherit}
+a{color:var(--gold)}
+a:hover{color:var(--gold-light)}
+:focus-visible{outline:2px solid var(--gold-light);outline-offset:3px}
+
+.progress{position:fixed;inset:0 0 auto 0;height:3px;background:rgba(201,169,110,.10);z-index:5;opacity:0;transition:opacity .4s}
+.progress.on{opacity:1}
+.progress span{display:block;height:100%;width:0;background:var(--accent);transition:width .5s ease}
+
+.wrap{max-width:38rem;margin:0 auto;padding:1.25rem 1rem 1.5rem;display:flex;flex-direction:column;min-height:100vh;min-height:100dvh}
+.brand{text-decoration:none;display:inline-flex;align-items:center;gap:.7rem;margin:0 0 .6rem}
+.mark{display:block;width:40px;height:40px}
+.brand b{font-family:var(--label);font-weight:500;font-size:.72rem;letter-spacing:.16em;color:var(--gold)}
+
+.card{background:var(--panel);border:1px solid var(--line);border-radius:6px;padding:2rem 1.4rem 2.2rem;flex:0 0 auto}
+@media (min-width:600px){.wrap{padding-top:2rem}.card{padding:2.6rem 3rem 2.8rem}}
+
+.screen{display:none}
+.screen.active{display:block;animation:fade .45s ease both}
+@keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+
+.label{font-family:var(--label);font-weight:500;font-size:.74rem;letter-spacing:.16em;line-height:1.6;text-transform:uppercase;margin:0}
+.kicker{color:var(--gold)}
+
+h1,h2,.question{font-family:var(--display);color:var(--cream);font-weight:500;margin:0}
+h1{font-size:clamp(2rem,7vw,2.75rem);line-height:1.15;letter-spacing:-.005em}
+h2{font-size:clamp(1.55rem,5vw,1.9rem);line-height:1.25}
+h1:focus,h2:focus,.question:focus{outline:none}
+p{margin:0 0 1.1rem}
+.lede{font-family:var(--display);font-style:italic;font-size:1.3rem;line-height:1.55;color:var(--gold-pale)}
+.quiet{color:var(--sage)}
+.rule{height:1px;background:var(--line);border:0;margin:2rem 0}
+
+.btn{
+  display:inline-flex;align-items:center;justify-content:center;
+  min-height:56px;padding:.9rem 2rem;border-radius:4px;cursor:pointer;
+  font-family:var(--label);font-weight:600;font-size:.8rem;letter-spacing:.14em;
+  text-decoration:none;text-align:center;
+  color:#1a1408;border:1px solid rgba(240,214,140,.85);
+  background:linear-gradient(180deg,#ecd49a 0%,#d9bb7c 38%,#c9a96e 62%,#b8965c 100%);
+  box-shadow:inset 0 1px 0 rgba(255,244,214,.55),inset 0 -1px 0 rgba(90,66,28,.35),0 0 18px rgba(224,196,106,.22),0 4px 14px rgba(0,0,0,.35);
+  text-shadow:0 1px 0 rgba(255,240,200,.35);
+  transition:box-shadow .25s,filter .25s;
+}
+.btn:hover{filter:brightness(1.06);color:#1a1408;box-shadow:inset 0 1px 0 rgba(255,244,214,.65),inset 0 -1px 0 rgba(90,66,28,.35),0 0 26px rgba(224,196,106,.34),0 4px 14px rgba(0,0,0,.35)}
+.btn:active{filter:brightness(.97)}
+.btn-full{width:100%}
+/* outlined, so Try again does not compete with the training link */
+.btn-quiet{
+  color:var(--gold-pale);text-shadow:none;
+  border:1px solid rgba(201,169,110,.75);
+  background:linear-gradient(180deg,#26301f 0%,#1b241b 46%,#141b15 100%);
+  box-shadow:inset 0 1px 0 rgba(224,196,106,.22), 0 0 16px rgba(0,0,0,.5);
+}
+.btn-quiet:hover{
+  filter:none;color:var(--cream);border-color:var(--gold-light);
+  background:linear-gradient(180deg,#2e3a26 0%,#212c20 46%,#18211a 100%);
+  box-shadow:inset 0 1px 0 rgba(224,196,106,.4), 0 0 26px rgba(224,196,106,.28);
+}
+
+/* Intro */
+.intro h1{margin:1rem 0 1.5rem}
+.intro .facts{margin:1.75rem 0 2.25rem;padding:1.1rem 0 .2rem;border-top:1px solid var(--line)}
+.intro .facts p{margin:0 0 .9rem}
+
+/* Question */
+.qhead{display:flex;justify-content:space-between;align-items:baseline;gap:1rem;padding-bottom:.9rem;border-bottom:1px solid var(--accent)}
+.qhead .section{color:var(--accent)}
+.qhead .count{font-size:.95rem;color:var(--sage);white-space:nowrap}
+.question{font-size:clamp(1.6rem,5.5vw,2.1rem);line-height:1.25;margin:1.4rem 0 1.8rem}
+.answers{display:grid;gap:.75rem}
+.answer{
+  display:flex;align-items:center;gap:1rem;width:100%;min-height:60px;
+  padding:.85rem 1.2rem;text-align:left;cursor:pointer;line-height:1.5;
+  background:var(--base-2);border:1px solid var(--line);border-radius:4px;color:var(--body);
+  transition:border-color .2s,background-color .2s,color .2s;
+}
+.answer:hover{border-color:var(--line-hover)}
+.answer .dot{flex:0 0 auto;width:14px;height:14px;border-radius:50%;border:1px solid var(--line-hover);transition:background-color .2s,border-color .2s,box-shadow .2s}
+.answer[aria-pressed="true"]{border-color:var(--accent);background:rgba(201,169,110,.08);color:var(--cream)}
+.answer[aria-pressed="true"] .dot{background:var(--accent);border-color:var(--accent);box-shadow:0 0 8px 1px rgba(224,196,106,.35)}
+.back{margin-top:1.75rem;background:none;border:0;padding:.5rem 0;cursor:pointer;color:var(--sage);font-size:1rem;text-decoration:underline;text-decoration-color:var(--line-hover);text-underline-offset:4px}
+.back:hover{color:var(--cream)}
+
+/* Results */
+.result-head{margin:1rem 0 1.5rem;display:flex;align-items:center;gap:.6rem;flex-wrap:wrap}
+.result-head .leaf{font-size:1.6em;line-height:1}
+.start{margin:1.5rem 0;padding:1rem 1.2rem;border-left:2px solid var(--gold);background:var(--base-2);color:var(--cream)}
+.steps{margin:0;padding:0;list-style:none;counter-reset:step}
+.steps li{position:relative;padding:0 0 1.1rem 2.4rem;counter-increment:step}
+.steps li::before{content:counter(step);position:absolute;left:0;top:.2rem;width:1.6rem;height:1.6rem;border-radius:50%;border:1px solid var(--line-hover);color:var(--gold);font-family:var(--display);font-size:1.05rem;line-height:1.55rem;text-align:center}
+.steps-h{font-family:var(--display);font-size:1.4rem;color:var(--cream);font-weight:500;margin:1.75rem 0 .9rem}
+.invite{margin:2rem 0 0;padding-top:1.6rem;border-top:1px solid var(--line)}
+.actions{display:flex;flex-direction:column;gap:.9rem;margin-top:1.5rem}
+@media (min-width:600px){.actions{flex-direction:row}.actions .btn{flex:1 1 0;padding-left:1rem;padding-right:1rem}}
+.small{font-size:.9rem;line-height:1.7;color:var(--sage);margin:1.75rem 0 0}
+.demo{font-size:.9rem;line-height:1.7;color:var(--sage);margin:.6rem 0 0}
+
+footer{margin-top:auto;padding-top:2rem;text-align:center;font-size:.85rem;color:var(--sage)}
+footer a{color:var(--sage)}
+.brand-line{margin:.9rem 0 0;font-size:.95rem;color:var(--sage)}
+.foot-nav,.foot-legal{list-style:none;display:flex;flex-wrap:wrap;justify-content:center;gap:.4rem 1.1rem;margin:1.4rem 0 0;padding:0}
+.foot-nav a{font-size:.95rem;color:var(--body);text-decoration:none}
+.foot-nav a:hover{color:var(--gold-light)}
+.foot-contact{margin:1.3rem 0 0}
+.foot-contact a{color:var(--green);text-decoration:none}
+.diolch{font-family:var(--display);font-style:italic;font-size:1.25rem;color:var(--gold-pale);margin:.5rem 0 0}
+.foot-legal{margin-top:1.3rem}
+.foot-legal a{font-size:.85rem;color:var(--sage);text-decoration:none}
+.foot-legal a:hover{color:var(--gold-light)}
+footer .legal{margin:1.6rem auto 0;padding-top:1.2rem;border-top:1px solid var(--line);font-size:.8rem;line-height:1.7;color:var(--sage);max-width:34rem}
+footer .legal a{color:var(--sage)}
+.nowrap{white-space:nowrap}
+
+/* Shorter screens, such as laptops: keep each question on one screen */
+@media (max-height:900px){
+  .wrap{padding-top:1rem}
+  .card{padding-top:1.6rem;padding-bottom:1.8rem}
+  .qhead{padding-bottom:.6rem}
+  .question{font-size:clamp(1.45rem,3.2vw,1.85rem);margin:1rem 0 1.2rem}
+  .answers{gap:.6rem}
+  .answer{min-height:52px;padding:.6rem 1.1rem}
+  .back{margin-top:.9rem}
+}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation:none!important;transition:none!important}
+}
+</style>
+</head>
+<body>
+
+<div class="progress" id="progress" aria-hidden="true"><span></span></div>
+
+<div class="wrap">
+
+  <main class="card">
+
+    <!-- Screen 1: intro -->
+    <section class="screen intro active" id="s-intro" aria-labelledby="intro-h">
+      <p class="label kicker">The AI Confidence Check</p>
+      <h1 id="intro-h" tabindex="-1">How confident do you feel using AI at work?</h1>
+      <p class="lede">Five quick questions about how you use AI in your everyday work, and where you might go next.</p>
+      <div class="facts">
+        <p>There are no right or wrong answers, and nothing technical.</p>
+        <p>Your result appears on screen straight away. Nothing is collected or sent anywhere.</p>
+        <p class="quiet">Takes about 2 minutes.</p>
+      </div>
+      <button class="btn btn-full" type="button" id="start">LET'S BEGIN</button>
+    </section>
+
+    <!-- Screens 2 to 6: one question at a time -->
+    <section class="screen" id="s-question" aria-labelledby="q-text">
+      <div class="qhead">
+        <p class="label section" id="q-section"></p>
+        <span class="count" id="q-count" aria-live="polite"></span>
+      </div>
+      <h2 class="question" id="q-text" tabindex="-1"></h2>
+      <div class="answers" role="group" aria-labelledby="q-text">
+        <button class="answer" type="button" data-value="1" aria-pressed="false"><span class="dot" aria-hidden="true"></span><span class="answer-text"></span></button>
+        <button class="answer" type="button" data-value="2" aria-pressed="false"><span class="dot" aria-hidden="true"></span><span class="answer-text"></span></button>
+        <button class="answer" type="button" data-value="3" aria-pressed="false"><span class="dot" aria-hidden="true"></span><span class="answer-text"></span></button>
+        <button class="answer" type="button" data-value="4" aria-pressed="false"><span class="dot" aria-hidden="true"></span><span class="answer-text"></span></button>
+      </div>
+      <button class="back" type="button" id="back">Back</button>
+    </section>
+
+    <!-- Screen 7: result -->
+    <section class="screen" id="s-results" aria-labelledby="r-h">
+      <p class="label kicker">Your AI Confidence Check</p>
+      <div class="result-head">
+        <h1 id="r-h" tabindex="-1"></h1>
+        <span class="leaf" id="r-leaf" aria-hidden="true"></span>
+      </div>
+      <p id="r-text"></p>
+      <p class="start" id="r-start" hidden></p>
+      <p class="steps-h">Two things to try next</p>
+      <ol class="steps">
+        <li id="r-step1"></li>
+        <li id="r-step2"></li>
+      </ol>
+      <div class="invite">
+        <p id="r-invite"></p>
+        <div class="actions">
+          <a class="btn" href="training.html">EXPLORE AI TRAINING</a>
+          <button class="btn btn-quiet" type="button" id="again">TRY AGAIN</button>
+        </div>
+      </div>
+      <p class="small">This is an informal check of how confident you feel. It is not a professional skills assessment or a certification, and your answers are not stored or sent anywhere.</p>
+      <p class="demo">This check is an example of the simplest <a href="offers.html#lead-magnets">interactive tool Medraf Digital builds for clients</a>.</p>
+    </section>
+
+  </main>
+
+  <footer>
+    <a class="brand" href="index.html"><img class="mark" src="images/firefly-mark.png" alt="" width="48" height="48"><b>MEDRAF DIGITAL</b></a>
+    <p class="brand-line">I build calm systems that give you your time back.</p>
+    <ul class="foot-nav">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="oak.html">The Oak</a></li>
+      <li><a href="offers.html">Offers</a></li>
+      <li><a href="creatures.html">Smart Creatures</a></li>
+      <li><a href="nook.html">The Nook</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="book.html">Book a call</a></li>
+    </ul>
+    <p class="foot-contact"><a href="mailto:hello@medrafdigital.co.uk">hello@medrafdigital.co.uk</a></p>
+    <p class="diolch">Diolch.</p>
+    <ul class="foot-legal">
+      <li><a href="privacy.html">Privacy Policy</a></li>
+      <li><a href="terms.html">Website Terms</a></li>
+      <li><a href="cookies.html">Cookie Policy</a></li>
+      <li><a href="complaints.html">Data Protection Complaints Policy</a></li>
+    </ul>
+    <p class="legal">
+      Medraf Digital Limited &middot; Registered in England and Wales &middot; Company No. 17281956 &middot; <span class="nowrap">VAT No. 523 7259 88</span><br>
+      Registered office: Irish Square, Upper Denbigh Road, St Asaph, Denbighshire, LL17 0RN<br>
+      &copy; 2026 Medraf Digital Limited. All rights reserved.
+    </p>
+  </footer>
+</div>
+
+<script>
+/* =====================================================================
+   The AI Confidence Check.
+   Everything happens in this page. No answers leave the browser,
+   nothing is stored, and there is no form to submit.
+   ===================================================================== */
+(function () {
+  "use strict";
+
+  const QUESTIONS = [
+    {
+      section: "USING AI TOOLS",
+      text: "How confident do you feel using tools such as ChatGPT or Claude?",
+      area: "getting comfortable with the tools themselves",
+      answers: [
+        "I have not really used them yet, or only once or twice.",
+        "I have tried them, but I am never quite sure I am getting the best out of them.",
+        "I use them fairly often and usually get something useful back.",
+        "I use them comfortably, and I know what they are good at and where they let me down."
+      ]
+    },
+    {
+      section: "WRITING PROMPTS",
+      text: "When you ask AI to do something, how do you usually go about it?",
+      area: "the way you ask",
+      answers: [
+        "I type a short question and take whatever comes back.",
+        "I add some detail, but I am not sure what actually makes a difference.",
+        "I give it context and say what I want, and I adjust if the first answer is weak.",
+        "I could explain to someone else what makes a prompt work, and I build on a first answer until it is right."
+      ]
+    },
+    {
+      section: "CHECKING WHAT COMES BACK",
+      text: "How do you deal with the chance that AI has got something wrong?",
+      area: "checking what comes back",
+      answers: [
+        "I had not really thought about it needing to be checked.",
+        "I know it can be wrong, but I am not sure how to check it.",
+        "I check the important parts against another source before I rely on them.",
+        "I check as a matter of routine, and I know the kinds of things AI tends to get wrong."
+      ]
+    },
+    {
+      section: "PRIVACY AND RESPONSIBLE USE",
+      text: "How clear are you about what should and should not go into an AI tool?",
+      area: "knowing what should stay out of it",
+      answers: [
+        "I have not thought much about what I put in.",
+        "I have a feeling some things should not go in, but I am not sure where the line is.",
+        "I keep client, personal and confidential details out, and I know roughly why.",
+        "I know what the tool does with my data and what my organisation expects, and I apply that every time."
+      ]
+    },
+    {
+      section: "SPOTTING WHERE AI COULD HELP",
+      text: "How easily can you see where AI would help with your own everyday work?",
+      area: "seeing where it fits in your own work",
+      answers: [
+        "I am not sure where it would fit.",
+        "I can think of one or two things, but I have not tried them.",
+        "I have found a few tasks where it genuinely saves me effort.",
+        "I regularly spot tasks where it could help, and I can judge which ones are worth it."
+      ]
+    }
+  ];
+
+  /* Scoring: each answer is worth 1 to 4, in the order shown.
+     Five questions, so a total between 5 and 20.
+       5 to 9    Curious Beginner
+       10 to 15  Finding Your Feet
+       16 to 20  Ready to Go Further
+     One extra rule: if checking (Q3) or privacy (Q4) scores 1, the
+     result is capped at Finding Your Feet whatever the total, because
+     using AI often is not the same as using it safely. */
+  const RESULTS = {
+    beginner: {
+      name: "Curious Beginner",
+      leaf: "\uD83C\uDF31",
+      text: "You are at the start, and that is a perfectly good place to be. Most people who use AI well began by being unsure where it fitted, and the gap between where you are and being comfortable with it is smaller than it looks.",
+      steps: [
+        "Pick one small, low-stakes task you do every week, such as tidying an email or summarising some notes, and try it with an AI tool. Compare what comes back with what you would have written.",
+        "Treat the first answer as a draft, not a result. Tell the tool what was wrong or missing and ask again. Doing this a few times teaches more than any guide."
+      ],
+      invite: "If you would rather not work it out alone, Medraf Digital's AI Training starts from your own work and assumes nothing about what you have used before."
+    },
+    feet: {
+      name: "Finding Your Feet",
+      leaf: "\uD83C\uDF3F",
+      text: "You have used AI and seen what it can do, and you have probably also seen it miss. What tends to help at this stage is structure: a clearer way of asking, a habit of checking, and a firmer sense of what should stay out of it.",
+      steps: [
+        "Before your next prompt, give it three things: who you are, what you want, and what the result is for. Most weak answers come from missing context rather than a weak tool.",
+        "Decide now what never goes into an AI tool at work, such as client names, personal details and anything confidential, and write that rule down where you will see it."
+      ],
+      invite: "If you want that structure built around what you actually do, Medraf Digital's AI Training works on your real tasks, live, with time to stop and ask."
+    },
+    further: {
+      name: "Ready to Go Further",
+      leaf: "\uD83C\uDF33",
+      text: "You are comfortable with the basics, and you are already thinking about accuracy and responsible use. The next stage is less about learning the tools and more about working out where AI genuinely earns its place in your work and where your own judgement has to stay in charge.",
+      steps: [
+        "Keep a short list of the prompts that work for you, with the context they need. Reusing a good instruction is where the time saving starts to build.",
+        "Choose one task you do repeatedly and map it out step by step, then ask which steps AI could support and which should stay with you."
+      ],
+      invite: "If you want to take that further with a team, or make it part of how your organisation works, Medraf Digital's AI Training can be built around that."
+    }
+  };
+
+  const answers = new Array(QUESTIONS.length).fill(null);
+  let current = 0;
+  let locked = false;
+
+  const $ = (id) => document.getElementById(id);
+  const progress = $("progress");
+  const bar = progress.querySelector("span");
+  const answerButtons = Array.from(document.querySelectorAll(".answer"));
+  const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  function show(id, focusId) {
+    document.querySelectorAll(".screen").forEach((el) => el.classList.remove("active"));
+    const el = $(id);
+    void el.offsetWidth; // restart the fade on every change
+    el.classList.add("active");
+    window.scrollTo(0, 0);
+    if (focusId) $(focusId).focus({ preventScroll: true });
+  }
+
+  function renderQuestion() {
+    const q = QUESTIONS[current];
+    $("q-section").textContent = q.section;
+    $("q-count").textContent = (current + 1) + " of " + QUESTIONS.length;
+    $("q-text").textContent = q.text;
+    answerButtons.forEach((b, i) => {
+      b.querySelector(".answer-text").textContent = q.answers[i];
+      b.setAttribute("aria-pressed", String(Number(b.dataset.value) === answers[current]));
+    });
+    progress.classList.add("on");
+    bar.style.width = (current / QUESTIONS.length * 100) + "%";
+    show("s-question", "q-text");
+  }
+
+  $("start").addEventListener("click", () => {
+    current = 0;
+    renderQuestion();
+  });
+
+  answerButtons.forEach((btn) => {
+    btn.addEventListener("click", () => {
+      if (locked) return;
+      locked = true;
+      answers[current] = Number(btn.dataset.value);
+      answerButtons.forEach((b) => b.setAttribute("aria-pressed", String(b === btn)));
+      bar.style.width = ((current + 1) / QUESTIONS.length * 100) + "%";
+      setTimeout(() => {
+        locked = false;
+        if (current < QUESTIONS.length - 1) {
+          current += 1;
+          renderQuestion();
+        } else {
+          showResults();
+        }
+      }, reduceMotion ? 120 : 380);
+    });
+  });
+
+  $("back").addEventListener("click", () => {
+    if (locked) return;
+    if (current === 0) {
+      progress.classList.remove("on");
+      show("s-intro", "intro-h");
+      return;
+    }
+    current -= 1;
+    renderQuestion();
+  });
+
+  function calculate() {
+    const total = answers.reduce((a, b) => a + b, 0);
+    let key;
+    if (total >= 16) key = "further";
+    else if (total >= 10) key = "feet";
+    else key = "beginner";
+    // Frequent use is not the same as safe use.
+    if (key === "further" && (answers[2] === 1 || answers[3] === 1)) key = "feet";
+
+    const lowest = Math.min.apply(null, answers);
+    const highest = Math.max.apply(null, answers);
+    const area = lowest === highest ? null : QUESTIONS[answers.indexOf(lowest)].area; // ties go to the earlier question
+    return { total, key, area };
+  }
+
+  function showResults() {
+    const r = calculate();
+    const result = RESULTS[r.key];
+    progress.classList.remove("on");
+
+    $("r-h").textContent = result.name;
+    $("r-leaf").textContent = result.leaf;
+    $("r-text").textContent = result.text;
+    const start = $("r-start");
+    if (r.area) {
+      start.textContent = "Of the five areas, your answers suggest " + r.area + " is the one to start with.";
+      start.hidden = false;
+    } else {
+      start.hidden = true;
+    }
+    $("r-step1").textContent = result.steps[0];
+    $("r-step2").textContent = result.steps[1];
+    $("r-invite").textContent = result.invite;
+    show("s-results", "r-h");
+  }
+
+  $("again").addEventListener("click", () => {
+    answers.fill(null);
+    current = 0;
+    bar.style.width = "0%";
+    show("s-intro", "intro-h");
+  });
+})();
+</script>
+<script src="https://www.dante-ai.com/embed.js" data-agent-id="1309cd90-9c0c-4668-8aa8-96bf3d8f520c" data-widget-key="wk_pIWOKcWcsJ07bxpToPsKrM2qinNfYR5O" crossorigin="anonymous" async></script>
+</body>
+</html>
