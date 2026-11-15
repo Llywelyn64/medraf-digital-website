@@ -884,6 +884,21 @@ audio{
 .video-pending{display:flex;align-items:center;justify-content:center}
 .video-pending::after{content:"The film goes up in week one.";font-family:'Cormorant Garamond',serif;font-style:italic;font-size:20px;color:var(--sage)}
 .btn-pending{opacity:.55;pointer-events:none}
+
+/* ---------- Friday Reset request form ---------- */
+.fr-form{margin-top:24px}
+.form-field{margin-bottom:20px}
+.form-field label{font-family:'Cinzel',serif;font-weight:500;font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--gold);display:block;margin-bottom:8px}
+.form-field input{width:100%;min-height:54px;padding:14px 16px;border-radius:4px;background:var(--secondary);border:1px solid var(--divider);color:var(--cream);font-family:'Lato',sans-serif;font-size:17px}
+.form-field input:focus{border-color:var(--gold);outline:none}
+.hp{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
+.consent{display:flex;gap:14px;align-items:flex-start;margin:22px 0 16px;font-size:16px;line-height:1.7}
+.consent input{flex:0 0 auto;width:22px;height:22px;margin:5px 0 0;accent-color:var(--gold);cursor:pointer}
+.consent-optional{margin-top:-4px}
+.form-note{margin:0 0 16px;color:var(--gold-pale,#e8d5b0);font-size:16px;line-height:1.6}
+.form-note:empty{display:none}
+.fr-success{font-family:'Cormorant Garamond',serif;font-weight:500;font-size:26px;color:var(--gold-pale,#e8d5b0);line-height:1.35;margin-top:8px}
+.fr-form .btn:disabled{opacity:.55;cursor:default;filter:none}
 </style>
 <link rel="canonical" href="https://medrafdigital.co.uk/ambrose-owl.html">
 <meta property="og:type" content="website">
@@ -911,6 +926,7 @@ audio{
       <li><a href="index.html">Home</a></li>
       <li><a href="oak.html">The Oak</a></li>
       <li><a href="offers.html">Offers</a></li>
+      <li><a href="digital-products.html">Digital Products</a></li>
       <li><a href="creatures.html" aria-current="page">Smart Creatures</a></li>
       <li><a href="nook.html">The Nook</a></li>
       <li><a href="about.html">About</a></li>
@@ -1037,22 +1053,36 @@ audio{
 <section>
   <div class="narrow">
     <p class="eyebrow eyebrow-left">Free to take away</p>
-    <h2>Questions your clients might ask.</h2>
+    <h2>The Friday Reset.</h2>
     <div class="panel">
-      <p>A starting point for your front office assistant.</p>
-      <p>A practical starting point for thinking about what a front office assistant could answer for your clients, and what should always come back to you.</p>
-      <p>It covers the questions that come up again and again before somebody instructs a firm: money, timing, whether you are the right firm for them, what happens next, and the times when something has already happened. You fill in only the answers you are happy for an assistant to give. Anything that needs you can be left, so that the conversation turns into a booked appointment instead.</p>
-      <p>There is space to add the questions your own clients keep asking.</p>
-      <!-- ==========================================================
-           THE WORKSHEET
-           This goes live with the week two Wednesday post, not before.
-           When it is ready:
-             1. upload the PDF, for example as files/questions-your-clients-might-ask.pdf
-             2. put that path in the href below
-             3. delete class="btn-pending" and the aria-disabled attribute
-             4. change the button text to: Download the worksheet
-           ========================================================== -->
-      <a class="btn btn-pending" href="#" aria-disabled="true">Coming with week two</a>
+      <p>Twenty minutes on a Friday afternoon to look back at your week and plan the next one.</p>
+      <p>Answer seven short questions about your week, and the Friday Reset turns them into a ready-made prompt for ChatGPT, Claude or Copilot. Paste it in and you get a short briefing: what moved forward, what slowed you down, what is still waiting, and where to start on Monday. There is a printable PDF to keep as well.</p>
+      <p id="frIntro">Leave your name and email address and I will send you the link.</p>
+      <p class="fr-success" id="frSuccess" hidden tabindex="-1">Thank you. The link to the Friday Reset is on its way. Check your inbox in the next few minutes.</p>
+      <form class="fr-form" id="frForm" novalidate>
+        <div class="form-field">
+          <label for="frName">First name</label>
+          <input id="frName" name="first_name" type="text" autocomplete="given-name" maxlength="80" required>
+        </div>
+        <div class="form-field">
+          <label for="frEmail">Email address</label>
+          <input id="frEmail" name="email" type="email" autocomplete="email" inputmode="email" maxlength="254" required>
+        </div>
+        <div class="hp" aria-hidden="true">
+          <label for="frWebsite">Leave this empty</label>
+          <input id="frWebsite" name="company_website" type="text" tabindex="-1" autocomplete="off">
+        </div>
+        <div class="consent">
+          <input id="frConsent" type="checkbox">
+          <label for="frConsent" id="frConsentText">I agree to Medraf Digital Limited using my name and email address to send me the link to the Friday Reset, as set out in the <a href="privacy.html">privacy policy</a>.</label>
+        </div>
+        <div class="consent consent-optional">
+          <input id="frMarketing" type="checkbox">
+          <label for="frMarketing" id="frMarketingText">I would also like to receive occasional emails from Medraf Digital Limited with practical tips, tools and news about Medraf Digital products and services. I can unsubscribe at any time.</label>
+        </div>
+        <p class="form-note" id="frNote" role="alert"></p>
+        <button type="submit" class="btn" id="frSend">Send me the Friday Reset</button>
+      </form>
     </div>
   </div>
 </section>
@@ -1067,7 +1097,7 @@ audio{
 
 <section class="closing">
   <h2>Let's start with a conversation.</h2>
-  <p>A first chat, fifteen minutes. We talk about your business, how enquiries reach you, and whether any of this would genuinely help. If it would, I will tell you what working together looks like. Pricing is discussed on the call.</p>
+  <p>A first chat, fifteen minutes. We talk about your business, how enquiries reach you, and whether any of this would genuinely help. If it would, I will tell you what working together looks like.</p>
   <a class="btn" href="book.html">Book a call</a>
 </section>
 <footer class="site">
@@ -1080,6 +1110,7 @@ audio{
       <li><a href="index.html">Home</a></li>
       <li><a href="oak.html">The Oak</a></li>
       <li><a href="offers.html">Offers</a></li>
+      <li><a href="digital-products.html">Digital Products</a></li>
       <li><a href="creatures.html">Smart Creatures</a></li>
       <li><a href="nook.html">The Nook</a></li>
       <li><a href="about.html">About</a></li>
@@ -1123,6 +1154,46 @@ audio{
   });
 })();
 
+</script>
+
+<script>
+/* ============================================================
+   FRIDAY RESET REQUEST FORM
+   Posts to the n8n webhook below. The workflow emails the link
+   and adds the person to the email list only if
+   marketing_consent is true.
+   ============================================================ */
+(function(){
+  var FRIDAY_RESET_WEBHOOK_URL = 'https://n8n.srv1142137.hstgr.cloud/webhook/friday-reset';
+  var form=document.getElementById('frForm'); if(!form) return;
+  var nameEl=document.getElementById('frName'), emailEl=document.getElementById('frEmail'),
+      consentEl=document.getElementById('frConsent'), mkEl=document.getElementById('frMarketing'),
+      hpEl=document.getElementById('frWebsite'), noteEl=document.getElementById('frNote'),
+      btn=document.getElementById('frSend'), busy=false;
+  function note(m){ noteEl.textContent=m||''; }
+  function clean(id){ return document.getElementById(id).textContent.replace(/\s+/g,' ').trim(); }
+  function success(){
+    form.hidden=true; document.getElementById('frIntro').hidden=true;
+    var ok=document.getElementById('frSuccess'); ok.hidden=false; ok.focus();
+  }
+  form.addEventListener('submit',function(ev){
+    ev.preventDefault(); if(busy) return; note('');
+    if(!nameEl.value.trim()){ note('Please add your first name so I know who I am writing to.'); nameEl.focus(); return; }
+    if(!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(emailEl.value.trim())){ note('Please check the email address. The link is sent there.'); emailEl.focus(); return; }
+    if(!consentEl.checked){ note('Please tick the first box so I know I can send you the link.'); consentEl.focus(); return; }
+    if(hpEl.value){ success(); return; }
+    var payload={
+      first_name:nameEl.value.trim(), email:emailEl.value.trim(),
+      consent:true, consent_text:clean('frConsentText'),
+      marketing_consent:mkEl.checked, marketing_consent_text:mkEl.checked?clean('frMarketingText'):'',
+      requested:'friday_reset', source:'ambrose_owl_page', submitted_at:new Date().toISOString()
+    };
+    busy=true; btn.disabled=true;
+    fetch(FRIDAY_RESET_WEBHOOK_URL,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)})
+      .then(function(r){ if(!r.ok) throw new Error('failed'); busy=false; btn.disabled=false; success(); })
+      .catch(function(){ busy=false; btn.disabled=false; note('Something went wrong sending your request. Please try again, or email hello@medrafdigital.co.uk.'); });
+  });
+})();
 </script>
 </body>
 </html>

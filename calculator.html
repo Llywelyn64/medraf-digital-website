@@ -436,6 +436,7 @@ input[type=range]::-moz-range-thumb{
   accent-color:var(--gold);
   cursor:pointer;
 }
+.consent-optional{margin-top:-8px}
 .form-note{margin:0 0 16px;color:var(--gold-pale);font-size:16px;line-height:1.6}
 .form-note:empty{display:none}
 .capture .actions{margin-top:28px}
@@ -616,7 +617,12 @@ footer .legal a{color:var(--sage)}
 
       <div class="consent">
         <input id="consent" type="checkbox">
-        <label for="consent">I agree to Medraf Digital Limited using my name and email address to send me my Calculator result, as set out in the <a href="privacy.html">privacy policy</a>.</label>
+        <label for="consent" id="consent-text">I agree to Medraf Digital Limited using my name and email address to send me my Calculator result, as set out in the <a href="privacy.html">privacy policy</a>.</label>
+      </div>
+
+      <div class="consent consent-optional">
+        <input id="marketing" type="checkbox">
+        <label for="marketing" id="marketing-text">I would also like to receive occasional emails from Medraf Digital Limited about new bundles and other Medraf Digital products and services. I can unsubscribe at any time.</label>
       </div>
 
       <p class="form-note" id="formNote" role="alert"></p>
@@ -652,6 +658,7 @@ footer .legal a{color:var(--sage)}
       <li><a href="index.html">Home</a></li>
       <li><a href="oak.html">The Oak</a></li>
       <li><a href="offers.html">Offers</a></li>
+      <li><a href="digital-products.html">Digital Products</a></li>
       <li><a href="creatures.html">Smart Creatures</a></li>
       <li><a href="nook.html">The Nook</a></li>
       <li><a href="about.html">About</a></li>
@@ -881,6 +888,10 @@ function sendNumbers(thenBook){
     potential_monthly_value: current.potential_monthly_value,
     potential_annual_value: current.potential_annual_value,
     formatted: current.formatted,
+    consent: true,
+    consent_text: document.getElementById('consent-text').textContent.replace(/\s+/g, ' ').trim(),
+    marketing_consent: document.getElementById('marketing').checked,
+    marketing_consent_text: document.getElementById('marketing').checked ? document.getElementById('marketing-text').textContent.replace(/\s+/g, ' ').trim() : '',
     source: 'lost_enquiry_calculator'
   };
 
