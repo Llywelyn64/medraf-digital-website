@@ -4,10 +4,11 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Offers | Medraf Digital</title>
-<meta name="description" content="You don&#x27;t need AI everywhere. Medraf Digital starts with the problem, not the technology.">
+<meta name="description" content="Medraf Digital starts with the problem, not the technology.">
 <link rel="icon" href="images/favicon.png" sizes="any">
 <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
 <link rel="stylesheet" href="fonts.css">
+<script>document.documentElement.classList.add('js-offers');</script>
 <style>
 /* ==========================================================================
    Medraf Digital
@@ -894,6 +895,27 @@ footer.site{ view-transition-name: site-footer; }
 .offers-end{height:54px}
 @media (max-width:720px){.offer .panel{padding:32px 24px 30px}}
 
+
+/* ---------- offers picker ---------- */
+.offers-hero{padding:64px 24px 28px}
+.offers-hero h1{font-size:clamp(34px,4.6vw,46px);margin-bottom:12px}
+.offer-picker{padding:8px 0 40px}
+.picker-wrap{max-width:var(--wide);margin:0 auto;padding:0 24px}
+.picker-hint{text-align:center;color:var(--cream-muted);font-size:16px;margin-bottom:18px}
+.picker{display:grid;gap:16px;grid-template-columns:repeat(auto-fit,minmax(200px,1fr))}
+.pick{display:flex;flex-direction:column;gap:8px;text-decoration:none;background:var(--panel);border:1px solid var(--divider);border-radius:8px;padding:24px 20px;transition:border-color .2s,transform .2s;min-width:0}
+.pick:hover,.pick.on{border-color:var(--gold-light);transform:translateY(-2px)}
+.pick-name{font-family:'Cormorant Garamond',serif;font-size:24px;line-height:1.15;color:var(--cream)}
+.pick-line{font-size:15px;line-height:1.5;color:var(--body-text);flex:1 1 auto}
+.pick-price{font-size:14px;color:var(--gold-light)}
+.offer{scroll-margin-top:110px}
+@media (max-width:600px){.offers-hero{padding:44px 20px 20px}.picker{gap:10px;grid-template-columns:1fr}.pick{padding:14px 18px;gap:2px;flex-direction:row;flex-wrap:wrap;align-items:baseline;justify-content:space-between}.pick-line{display:none}.pick-name{font-size:21px}.offer{scroll-margin-top:90px}}
+.js-offers .offer{display:none}
+.js-offers .offer.open{display:block}
+.back-all{font-size:15px;color:var(--cream-muted);text-decoration:none;order:9}
+.back-all:hover{color:var(--gold-light)}
+.offers-intro .panel p{font-size:17px}
+
 /* ---------- presence audit page ---------- */
 .cta-pair{display:flex;flex-wrap:wrap;gap:16px;justify-content:center;margin-top:40px}
 .three-areas{font-family:'Cinzel',serif;font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:var(--green);margin:0 auto 22px !important}
@@ -933,7 +955,7 @@ h2.eyebrow{font-size:12px;line-height:1.6;margin-bottom:28px;color:var(--gold)}
 <meta property="og:site_name" content="Medraf Digital">
 <meta property="og:locale" content="en_GB">
 <meta property="og:title" content="Offers | Medraf Digital">
-<meta property="og:description" content="You don&#x27;t need AI everywhere. Medraf Digital starts with the problem, not the technology.">
+<meta property="og:description" content="Medraf Digital starts with the problem, not the technology.">
 <meta property="og:url" content="https://medrafdigital.co.uk/offers.html">
 <meta property="og:image" content="https://medrafdigital.co.uk/og-image.jpg">
 <meta property="og:image:width" content="1200">
@@ -941,7 +963,7 @@ h2.eyebrow{font-size:12px;line-height:1.6;margin-bottom:28px;color:var(--gold)}
 <meta property="og:image:alt" content="Medraf Digital. Every enquiry answered, day or night.">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Offers | Medraf Digital">
-<meta name="twitter:description" content="You don&#x27;t need AI everywhere. Medraf Digital starts with the problem, not the technology.">
+<meta name="twitter:description" content="Medraf Digital starts with the problem, not the technology.">
 <meta name="twitter:image" content="https://medrafdigital.co.uk/og-image.jpg">
 </head>
 <body>
@@ -966,24 +988,26 @@ h2.eyebrow{font-size:12px;line-height:1.6;margin-bottom:28px;color:var(--gold)}
     </nav>
   </div>
 </header>
-<section class="hero">
+<section class="hero offers-hero">
   <p class="eyebrow">Offers</p>
-  <h1>Start with what is <em>actually happening</em></h1>
-  <div class="rule"></div>
-  <p class="lede">You don't need AI everywhere.</p>
+  <h1>How can I help?</h1>
+  <p class="lede">Choose an offer to read more.</p>
 </section>
 
-<section class="tight">
-  <div class="narrow">
-    <div class="panel">
-      <p>You need to know where it could genuinely help, what needs fixing first, and what should stay human.</p>
-      <p>Medraf Digital starts with the problem, not the technology.</p>
-      <p>That might mean understanding how your business appears to people and AI, looking across your whole front office, building a better way to handle enquiries, helping you and your team use AI confidently in the work you already do, or giving your website a small tool that is useful on its own.</p>
+
+<section class="offer-picker" id="all-offers">
+  <div class="picker-wrap">
+    <div class="picker">
+      <a class="pick" href="#presence"><span class="pick-name">AI Presence Audit</span><span class="pick-line">How your business looks to people and to AI.</span><span class="pick-price">&pound;1,500 plus VAT</span></a>
+      <a class="pick" href="#front-office"><span class="pick-name">Front Office Audit</span><span class="pick-line">Your whole client journey, reviewed and mapped.</span><span class="pick-price">From &pound;2,500 plus VAT</span></a>
+      <a class="pick" href="#assistant"><span class="pick-name">AI Website Assistant</span><span class="pick-line">Answers for your visitors, even when you are closed.</span><span class="pick-price">From &pound;1,295 plus VAT</span></a>
+      <a class="pick" href="#training"><span class="pick-name">AI Training</span><span class="pick-line">Built around the work you actually do.</span><span class="pick-price">Price on application</span></a>
+      <a class="pick" href="#lead-magnets"><span class="pick-name">Interactive Lead Magnets</span><span class="pick-line">A useful tool for visitors before they get in touch.</span><span class="pick-price">From &pound;1,495 plus VAT</span></a>
     </div>
   </div>
 </section>
 
-<section class="offer">
+<section class="offer" id="presence">
   <div class="narrow">
     <article class="panel">
       <p class="eyebrow eyebrow-left">AI Presence Audit</p>
@@ -996,13 +1020,14 @@ h2.eyebrow{font-size:12px;line-height:1.6;margin-bottom:28px;color:var(--gold)}
         </ul>
         <p class="price-note">A founding rate for the first three clients.</p>
       <div class="links">
+        <a class="back-all" href="#all-offers">&larr; Back to all offers</a>
         <a class="link-on" href="presence-audit.html">Explore the AI Presence Audit</a>
         <p class="aside-link">Not ready for an audit? <a href="presence-check.html">Take the free AI Presence Check &rarr;</a></p>
       </div>
     </article>
   </div>
 </section>
-<section class="offer">
+<section class="offer" id="front-office">
   <div class="narrow">
     <article class="panel">
       <p class="eyebrow eyebrow-left">Front Office Audit</p>
@@ -1016,12 +1041,13 @@ h2.eyebrow{font-size:12px;line-height:1.6;margin-bottom:28px;color:var(--gold)}
           <li><span>Larger businesses</span><span class="amt">Quoted after the first chat</span></li>
         </ul>
       <div class="links">
+        <a class="back-all" href="#all-offers">&larr; Back to all offers</a>
         <a class="link-on" href="audit.html">Explore the Front Office Audit</a>
       </div>
     </article>
   </div>
 </section>
-<section class="offer">
+<section class="offer" id="assistant">
   <div class="narrow">
     <article class="panel">
       <p class="eyebrow eyebrow-left">AI Website Assistant</p>
@@ -1038,13 +1064,14 @@ h2.eyebrow{font-size:12px;line-height:1.6;margin-bottom:28px;color:var(--gold)}
         </ul>
         <p class="price-note">Live and Ready for Christmas: book by Monday 30 November for a go-live before Christmas.</p>
       <div class="links">
+        <a class="back-all" href="#all-offers">&larr; Back to all offers</a>
         <a class="link-on" href="lead-capture.html">Explore the AI Website Assistant</a>
         <p class="aside-link">Not ready to explore a system? <a href="calculator.html">Try the free Lost Enquiry Calculator &rarr;</a></p>
       </div>
     </article>
   </div>
 </section>
-<section class="offer">
+<section class="offer" id="training">
   <div class="narrow">
     <article class="panel">
       <p class="eyebrow eyebrow-left">AI Training</p>
@@ -1057,6 +1084,7 @@ h2.eyebrow{font-size:12px;line-height:1.6;margin-bottom:28px;color:var(--gold)}
           <li><span>AI Training</span><span class="amt">Price on application</span></li>
         </ul>
       <div class="links">
+        <a class="back-all" href="#all-offers">&larr; Back to all offers</a>
         <a class="link-on" href="training.html">Explore AI Training</a>
         <p class="aside-link">Not sure where you are starting from? <a href="confidence-check.html">Take the free AI Confidence Check &rarr;</a></p>
       </div>
@@ -1077,6 +1105,7 @@ h2.eyebrow{font-size:12px;line-height:1.6;margin-bottom:28px;color:var(--gold)}
           <li><span>Tier 3, Lead Generation Journey</span><span class="amt">From &pound;3,995 plus VAT</span></li>
         </ul>
       <div class="links">
+        <a class="back-all" href="#all-offers">&larr; Back to all offers</a>
         <a class="link-on" href="book.html">Talk about a lead magnet</a>
         <p class="aside-link">Try them: <a href="confidence-check.html">AI Confidence Check</a> &middot; <a href="presence-check.html">AI Presence Check</a> &middot; <a href="calculator.html">Lost Enquiry Calculator</a></p>
       </div>
@@ -1084,6 +1113,17 @@ h2.eyebrow{font-size:12px;line-height:1.6;margin-bottom:28px;color:var(--gold)}
   </div>
 </section>
 <div class="offers-end"></div>
+
+<section class="tight offers-intro">
+  <div class="narrow">
+    <div class="panel">
+      <p>You need to know where it could genuinely help, what needs fixing first, and what should stay human.</p>
+      <p>Medraf Digital starts with the problem, not the technology.</p>
+      <p>That might mean understanding how your business appears to people and AI, looking across your whole front office, building a better way to handle enquiries, helping you and your team use AI confidently in the work you already do, or giving your website a small tool that is useful on its own.</p>
+    </div>
+  </div>
+</section>
+
 
 <footer class="site">
   <div class="foot-grid">
@@ -1139,6 +1179,27 @@ h2.eyebrow{font-size:12px;line-height:1.6;margin-bottom:28px;color:var(--gold)}
   });
 })();
 
+
+/* Offers picker: show one offer at a time. Without script, every offer shows. */
+(function () {
+  document.documentElement.classList.add('js-offers');
+  var ids = ['presence','front-office','assistant','training','lead-magnets'];
+  function show(id, jump) {
+    ids.forEach(function (x) {
+      var sec = document.getElementById(x);
+      var pick = document.querySelector('.pick[href="#' + x + '"]');
+      if (sec) sec.classList.toggle('open', x === id);
+      if (pick) pick.classList.toggle('on', x === id);
+    });
+    if (jump && id) { var t = document.getElementById(id); if (t) t.scrollIntoView({behavior:'smooth', block:'start'}); }
+  }
+  function fromHash(jump) {
+    var h = location.hash.replace('#','');
+    if (ids.indexOf(h) > -1) show(h, jump); else show(null, false);
+  }
+  window.addEventListener('hashchange', function(){ fromHash(true); });
+  fromHash(true);
+})();
 </script>
 </body>
 </html>
